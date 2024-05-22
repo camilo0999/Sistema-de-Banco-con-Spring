@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bank</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
+</head>
+
+<body class="bg-gray-100 dark:bg-gray-900">
+
+    <nav class="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-600">
+        <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+            <a href="/bank/inicio" class="flex items-center space-x-3 rtl:space-x-reverse">
+                <img src="https://flowbite.com/docs/images/logo.svg" class="h-8" alt="Flowbite Logo">
+                <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Bank</span>
+            </a>
+            <div class="flex gap-2 md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+                <a href=""> <img class="w-10 h-10 rounded"
+                        src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="Default avatar"></a>
+                <button type="button"
+                    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Cerrar
+                    sesion</button>
+                <button data-collapse-toggle="navbar-sticky" type="button"
+                    class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+                    aria-controls="navbar-sticky" aria-expanded="false">
+                    <span class="sr-only">Abrir menu</span>
+                    <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 17 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M1 1h15M1 7h15M1 13h15" />
+                    </svg>
+                </button>
+            </div>
+            <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
+                <ul
+                    class="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+                    <li>
+                        <a href="/bank/inicio"
+                            class="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500"
+                            aria-current="page">Cuenta</a>
+                    </li>
+                    <li>
+                        <a href="#"
+                            class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Movimientos</a>
+                    </li>
+                    <li>
+                        <a href="#"
+                            class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Servicios</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="m-4 rounded-lg h-96 w-auto bg-blue-600">
+        <h2 class="text-2xl text-center font-extrabold text-white pt-5">Saldo disponible</h2>
+        <h2 class="text-1xl text-center  text-white">12.345.121,00</h2>
+    </div>
+
+
+
+    <div data-dial-init class="fixed end-6 bottom-6 group">
+        <div id="speed-dial-menu-square" class="flex flex-col items-center hidden mb-4 space-y-2">
+            <button type="button" data-tooltip-target="tooltip-share" data-tooltip-placement="left"
+                class="flex justify-center items-center w-[52px] h-[52px] text-gray-500 hover:text-gray-900 bg-white rounded-lg border border-gray-200 dark:border-gray-600 shadow-sm dark:hover:text-white dark:text-gray-400 hover:bg-gray-50 dark:bg-gray-700 dark:hover:bg-gray-600 focus:ring-4 focus:ring-gray-300 focus:outline-none dark:focus:ring-gray-400">
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"
+                    width="30" height="30" viewBox="0 0 256 256" xml:space="preserve">
+
+                    <defs>
+                    </defs>
+                    <g style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: none; fill-rule: nonzero; opacity: 1;"
+                        transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)">
+                        <path
+                            d="M 89 35.104 L 51.046 65.852 c -3.525 2.855 -8.567 2.855 -12.091 0 L 1 35.104 L 38.954 4.355 c 3.525 -2.855 8.567 -2.855 12.091 0 L 89 35.104 z"
+                            style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(225,174,66); fill-rule: nonzero; opacity: 1;"
+                            transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+                        <path
+                            d="M 45 68.979 c -2.371 0 -4.741 -0.783 -6.675 -2.35 L 0.371 35.88 C 0.136 35.69 0 35.405 0 35.104 s 0.136 -0.587 0.371 -0.777 L 38.325 3.578 c 3.867 -3.133 9.48 -3.134 13.351 0 L 89.63 34.327 c 0.234 0.19 0.37 0.475 0.37 0.777 s -0.136 0.587 -0.37 0.777 L 51.676 66.63 C 49.741 68.196 47.37 68.979 45 68.979 z M 2.588 35.104 l 36.996 29.972 c 3.138 2.543 7.693 2.542 10.832 0 l 36.995 -29.972 L 50.416 5.132 c -3.139 -2.542 -7.694 -2.542 -10.832 0 L 2.588 35.104 z"
+                            style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;"
+                            transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+                        <rect x="11.79" y="25.01" rx="0" ry="0" width="73.13" height="34.9"
+                            style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(68,196,161); fill-rule: nonzero; opacity: 1;"
+                            transform=" matrix(0.8359 -0.5488 0.5488 0.8359 -15.3684 33.5032) " />
+                        <path
+                            d="M 61.967 12.646 c 2.674 4.073 8.145 5.208 12.218 2.533 l -4.842 -7.376 L 61.967 12.646 z"
+                            style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(49,151,140); fill-rule: nonzero; opacity: 1;"
+                            transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+                        <path
+                            d="M 27.362 78.109 c -0.068 0 -0.136 -0.007 -0.203 -0.021 c -0.26 -0.054 -0.487 -0.209 -0.633 -0.431 L 7.375 48.488 c -0.303 -0.462 -0.175 -1.082 0.287 -1.385 L 68.794 6.967 c 0.221 -0.145 0.491 -0.198 0.752 -0.143 c 0.26 0.054 0.487 0.208 0.633 0.43 l 19.151 29.17 c 0.303 0.462 0.175 1.082 -0.287 1.385 L 27.911 77.945 C 27.747 78.053 27.556 78.109 27.362 78.109 z M 9.596 48.227 l 18.054 27.498 l 59.46 -39.039 L 69.056 9.188 L 9.596 48.227 z"
+                            style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;"
+                            transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+                        <path
+                            d="M 69.358 17.624 c -3.201 0 -6.343 -1.559 -8.228 -4.429 c -0.146 -0.222 -0.197 -0.492 -0.144 -0.752 s 0.209 -0.487 0.431 -0.633 l 7.376 -4.843 c 0.462 -0.301 1.081 -0.174 1.385 0.287 l 4.843 7.376 c 0.146 0.222 0.197 0.492 0.144 0.752 s -0.209 0.487 -0.431 0.633 C 73.076 17.104 71.207 17.624 69.358 17.624 z M 63.405 12.898 c 2.306 2.692 6.176 3.494 9.36 1.941 l -3.71 -5.651 L 63.405 12.898 z"
+                            style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;"
+                            transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+                        <rect x="8.52" y="32.99" rx="0" ry="0" width="73.13" height="34.9"
+                            style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(68,196,161); fill-rule: nonzero; opacity: 1;"
+                            transform=" matrix(0.9479 -0.3185 0.3185 0.9479 -13.7151 16.9853) " />
+                        <circle cx="45.083" cy="50.433" r="11.393"
+                            style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(49,151,140); fill-rule: nonzero; opacity: 1;"
+                            transform="  matrix(1 0 0 1 0 0) " />
+                        <path
+                            d="M 65.827 25.061 c 1.552 4.619 6.555 7.106 11.174 5.554 l -2.81 -8.364 L 65.827 25.061 z"
+                            style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(49,151,140); fill-rule: nonzero; opacity: 1;"
+                            transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+                        <path
+                            d="M 15.982 79.62 c -0.418 0 -0.808 -0.264 -0.948 -0.682 L 3.92 45.86 c -0.084 -0.251 -0.066 -0.526 0.052 -0.764 c 0.118 -0.237 0.326 -0.418 0.577 -0.502 l 69.322 -23.291 c 0.525 -0.176 1.091 0.106 1.267 0.629 l 11.114 33.078 c 0.084 0.251 0.065 0.526 -0.053 0.764 s -0.325 0.418 -0.577 0.503 L 16.3 79.568 C 16.195 79.604 16.087 79.62 15.982 79.62 z M 6.135 46.172 l 10.477 31.182 l 67.427 -22.654 L 73.561 23.518 L 6.135 46.172 z"
+                            style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;"
+                            transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+                        <path
+                            d="M 45.096 62.829 c -5.179 0 -10.02 -3.273 -11.758 -8.446 c -2.176 -6.478 1.323 -13.519 7.801 -15.695 c 6.477 -2.175 13.52 1.323 15.696 7.801 l 0 0 c 2.176 6.478 -1.323 13.519 -7.802 15.695 C 47.729 62.621 46.401 62.829 45.096 62.829 z M 45.078 40.041 c -1.095 0 -2.208 0.175 -3.302 0.542 c -5.432 1.826 -8.367 7.73 -6.542 13.163 c 1.825 5.432 7.726 8.369 13.163 6.541 c 5.433 -1.825 8.367 -7.729 6.542 -13.162 C 53.481 42.787 49.421 40.041 45.078 40.041 z"
+                            style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;"
+                            transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+                        <path
+                            d="M 45.928 56.939 c -0.13 0 -0.26 -0.007 -0.391 -0.021 c -0.995 -0.102 -1.891 -0.586 -2.521 -1.362 c -0.349 -0.429 -0.283 -1.059 0.145 -1.407 c 0.428 -0.348 1.058 -0.283 1.407 0.146 c 0.294 0.362 0.711 0.587 1.175 0.635 c 0.459 0.052 0.917 -0.087 1.279 -0.382 c 0.361 -0.294 0.587 -0.712 0.635 -1.176 c 0.048 -0.463 -0.088 -0.918 -0.382 -1.279 c -0.349 -0.428 -0.871 -0.664 -1.42 -0.639 l -1.525 -0.038 c -1.122 0.052 -2.234 -0.456 -2.982 -1.376 c -1.303 -1.603 -1.06 -3.966 0.542 -5.269 c 0.775 -0.631 1.749 -0.925 2.746 -0.82 c 0.995 0.102 1.891 0.586 2.522 1.362 c 0.348 0.429 0.283 1.058 -0.146 1.407 s -1.057 0.283 -1.407 -0.146 c -0.294 -0.361 -0.711 -0.586 -1.174 -0.634 c -0.462 -0.047 -0.917 0.087 -1.28 0.382 c -0.746 0.607 -0.859 1.708 -0.252 2.455 c 0.348 0.428 0.874 0.667 1.419 0.639 l 1.525 0.038 c 1.125 -0.047 2.233 0.456 2.982 1.375 c 0.632 0.776 0.923 1.752 0.82 2.747 s -0.586 1.891 -1.362 2.521 C 47.609 56.647 46.785 56.939 45.928 56.939 z"
+                            style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;"
+                            transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+                        <path
+                            d="M 43.296 46.106 c -0.418 0 -0.808 -0.264 -0.948 -0.682 l -0.489 -1.454 c -0.176 -0.524 0.105 -1.091 0.629 -1.267 c 0.527 -0.176 1.091 0.106 1.267 0.629 l 0.489 1.454 c 0.176 0.524 -0.105 1.091 -0.629 1.267 C 43.509 46.089 43.401 46.106 43.296 46.106 z"
+                            style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;"
+                            transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+                        <path
+                            d="M 47.365 58.219 c -0.418 0 -0.808 -0.264 -0.948 -0.682 l -0.488 -1.454 c -0.176 -0.523 0.106 -1.091 0.629 -1.267 c 0.525 -0.174 1.091 0.106 1.267 0.63 l 0.488 1.454 c 0.176 0.523 -0.106 1.091 -0.63 1.267 C 47.578 58.202 47.471 58.219 47.365 58.219 z"
+                            style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;"
+                            transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+                        <path
+                            d="M 74.182 32.08 c -1.497 0 -2.983 -0.346 -4.363 -1.032 c -2.35 -1.168 -4.104 -3.181 -4.939 -5.668 c -0.176 -0.523 0.106 -1.09 0.63 -1.266 l 8.363 -2.81 c 0.525 -0.176 1.091 0.106 1.267 0.629 l 2.811 8.364 c 0.176 0.523 -0.106 1.09 -0.63 1.266 C 76.292 31.908 75.234 32.08 74.182 32.08 z M 67.153 25.67 c 0.75 1.553 1.986 2.807 3.556 3.586 s 3.313 1.01 5.006 0.669 l -2.153 -6.408 L 67.153 25.67 z"
+                            style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;"
+                            transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+                        <path
+                            d="M 89 35.104 L 51.046 65.852 c -3.525 2.855 -8.567 2.855 -12.091 0 L 1 35.104 v 52.683 h 88 V 35.104 z"
+                            style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(238,187,80); fill-rule: nonzero; opacity: 1;"
+                            transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+                        <path
+                            d="M 51.046 65.852 c -3.525 2.855 -8.567 2.855 -12.091 0 l -4.649 -3.766 L 1 87.787 h 88 l -33.306 -25.7 L 51.046 65.852 z"
+                            style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(252,212,98); fill-rule: nonzero; opacity: 1;"
+                            transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+                        <path
+                            d="M 89 88.787 H 1 c -0.552 0 -1 -0.447 -1 -1 V 35.104 c 0 -0.386 0.222 -0.737 0.57 -0.903 c 0.348 -0.164 0.761 -0.117 1.06 0.126 l 37.955 30.749 c 3.138 2.543 7.693 2.542 10.832 0 L 88.37 34.327 c 0.3 -0.244 0.711 -0.291 1.061 -0.126 C 89.778 34.367 90 34.718 90 35.104 v 52.684 C 90 88.34 89.553 88.787 89 88.787 z M 2 86.787 h 86 V 37.201 L 51.676 66.63 c -3.87 3.134 -9.484 3.132 -13.351 0 L 2 37.201 V 86.787 z"
+                            style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;"
+                            transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+                        <path
+                            d="M 89 88.787 H 1 c -0.428 0 -0.809 -0.272 -0.946 -0.678 c -0.138 -0.404 -0.003 -0.853 0.335 -1.114 l 33.306 -25.701 c 0.367 -0.282 0.881 -0.277 1.24 0.015 l 4.649 3.767 c 3.138 2.543 7.693 2.542 10.832 0 l 4.648 -3.767 c 0.36 -0.291 0.873 -0.297 1.241 -0.015 l 33.306 25.701 c 0.338 0.262 0.474 0.71 0.335 1.114 C 89.809 88.515 89.428 88.787 89 88.787 z M 3.933 86.787 h 82.135 L 55.71 63.36 l -4.034 3.27 l 0 0 c -3.87 3.134 -9.484 3.132 -13.351 0 l -4.035 -3.27 L 3.933 86.787 z M 51.046 65.853 h 0.01 H 51.046 z"
+                            style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;"
+                            transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+                    </g>
+                </svg>
+                <span class="sr-only">Enviar</span>
+            </button>
+            <div id="tooltip-share" role="tooltip"
+                class="absolute z-10 invisible inline-block w-auto px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                Enviar
+                <div class="tooltip-arrow" data-popper-arrow></div>
+            </div>
+            <button type="button" data-tooltip-target="tooltip-print" data-tooltip-placement="left"
+                class="flex justify-center items-center w-[52px] h-[52px] text-gray-500 hover:text-gray-900 bg-white rounded-lg border border-gray-200 dark:border-gray-600 shadow-sm dark:hover:text-white dark:text-gray-400 hover:bg-gray-50 dark:bg-gray-700 dark:hover:bg-gray-600 focus:ring-4 focus:ring-gray-300 focus:outline-none dark:focus:ring-gray-400">
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"
+                    width="30" height="30" viewBox="0 0 256 256" xml:space="preserve">
+
+                    <defs>
+                    </defs>
+                    <g style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: none; fill-rule: nonzero; opacity: 1;"
+                        transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)">
+                        <path
+                            d="M 25.44 61.276 c -0.631 1.554 0.017 3.348 1.514 4.105 c 11.516 5.826 25.37 16.283 30.68 16.283 c 0.275 0.021 0.55 0.03 0.825 0.03 c 2.403 0 4.777 -0.742 7.08 -1.461 c 2.528 -0.79 5.14 -1.606 7.729 -1.413 l 6.413 0.478 V 59.613 l -3.496 -0.261 c -2.166 -0.164 -3.988 0.547 -5.742 1.235 c -1.642 0.643 -3.191 1.248 -4.972 1.128 l -11.45 -1.747 c -4.109 -0.592 -6.37 1.396 -7.747 3.218 l -17.12 -3.859 C 27.605 58.984 26.037 59.808 25.44 61.276 L 25.44 61.276 z"
+                            style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(238,198,179); fill-rule: nonzero; opacity: 1;"
+                            transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+                        <path
+                            d="M 65.826 69.916 c -6.442 0.915 -14.182 -1.598 -18.915 -4.448 c -0.782 -0.471 -1.062 -1.472 -0.639 -2.282 l 0 0 C 47.095 65.578 58.986 68.759 65.826 69.916 z"
+                            style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(205,149,123); fill-rule: nonzero; opacity: 1;"
+                            transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+                        <path
+                            d="M 27.015 63.002 c 11.919 5.826 26.258 16.283 31.753 16.283 c 0.285 0.021 0.57 0.03 0.854 0.03 c 2.487 0 4.944 -0.742 7.328 -1.461 c 2.616 -0.79 5.32 -1.606 7.999 -1.413 l 4.731 0.341 v 2.517 l -6.413 -0.478 c -2.589 -0.193 -5.201 0.623 -7.729 1.413 c -2.303 0.719 -4.677 1.461 -7.08 1.461 c -0.274 0 -0.55 -0.01 -0.825 -0.03 c -5.31 0 -19.163 -10.457 -30.68 -16.283 c -1.489 -0.753 -2.135 -2.531 -1.521 -4.079 C 25.719 62.016 26.261 62.633 27.015 63.002 z"
+                            style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(205,149,123); fill-rule: nonzero; opacity: 1;"
+                            transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+                        <path
+                            d="M 78.408 82.289 h 9.582 c 1.11 0 2.01 -0.9 2.01 -2.009 V 56.521 c 0 -1.11 -0.9 -2.01 -2.01 -2.01 h -9.582 c -1.11 0 -2.01 0.9 -2.01 2.01 v 23.759 C 76.399 81.389 77.298 82.289 78.408 82.289 z"
+                            style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(52,57,54); fill-rule: nonzero; opacity: 1;"
+                            transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+                        <path
+                            d="M 78.408 54.511 h 0.988 c -0.008 0.075 -0.023 0.148 -0.023 0.225 v 23.759 c 0 1.11 0.9 2.009 2.009 2.009 h 8.595 c -0.113 1.003 -0.954 1.785 -1.987 1.785 h -9.582 c -1.11 0 -2.009 -0.9 -2.009 -2.009 V 56.521 C 76.399 55.411 77.298 54.511 78.408 54.511 z"
+                            style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(46,50,47); fill-rule: nonzero; opacity: 1;"
+                            transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+                        <path
+                            d="M 43.727 26.814 l 17.12 3.859 c 1.547 0.343 3.115 -0.481 3.712 -1.949 v 0 c 0.631 -1.554 -0.017 -3.348 -1.514 -4.105 C 51.53 18.793 37.676 8.336 32.366 8.336 c -0.275 -0.021 -0.55 -0.03 -0.825 -0.03 c -2.403 0 -4.777 0.742 -7.08 1.461 c -2.528 0.79 -5.14 1.606 -7.729 1.413 l -6.413 -0.478 l 0 15.797 C 21.213 24.16 32.334 24.117 43.727 26.814 z"
+                            style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(238,198,179); fill-rule: nonzero; opacity: 1;"
+                            transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+                        <path
+                            d="M 62.985 26.998 c -11.919 -5.826 -26.258 -16.283 -31.753 -16.283 c -0.285 -0.021 -0.57 -0.03 -0.854 -0.03 c -2.487 0 -4.944 0.742 -7.328 1.461 c -2.616 0.79 -5.32 1.606 -7.999 1.413 l -4.731 -0.341 v -2.517 l 6.413 0.478 c 2.589 0.193 5.201 -0.623 7.729 -1.413 c 2.303 -0.719 4.677 -1.461 7.08 -1.461 c 0.274 0 0.55 0.01 0.825 0.03 c 5.31 0 19.163 10.457 30.68 16.283 c 1.489 0.753 2.135 2.531 1.521 4.079 C 64.281 27.984 63.739 27.367 62.985 26.998 z"
+                            style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(205,149,123); fill-rule: nonzero; opacity: 1;"
+                            transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+                        <path
+                            d="M 68.77 39.759 L 25.253 47.89 c -0.802 0.15 -1.574 -0.379 -1.724 -1.181 l -3.918 -20.967 c -0.15 -0.802 0.379 -1.574 1.181 -1.724 l 43.517 -8.132 c 0.802 -0.15 1.574 0.379 1.724 1.181 l 3.918 20.967 C 70.101 38.837 69.572 39.609 68.77 39.759 z"
+                            style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(49,139,54); fill-rule: nonzero; opacity: 1;"
+                            transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+                        <path
+                            d="M 60.009 18.744 l -34.168 6.385 c 0.446 2.389 -1.128 4.687 -3.517 5.133 l 2.107 11.278 c 2.389 -0.446 4.687 1.128 5.133 3.517 l 34.168 -6.385 c -0.009 -0.043 -0.023 -0.084 -0.031 -0.128 c -0.446 -2.389 1.128 -4.687 3.517 -5.133 l -2.107 -11.278 C 62.766 22.571 60.513 21.059 60.009 18.744 z"
+                            style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(59,158,65); fill-rule: nonzero; opacity: 1;"
+                            transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+                        <circle cx="22.792" cy="26.772000000000002" r="1.102"
+                            style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(59,158,65); fill-rule: nonzero; opacity: 1;"
+                            transform="  matrix(1 0 0 1 0 0) " />
+                        <circle cx="26.122" cy="44.581999999999994" r="1.102"
+                            style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(59,158,65); fill-rule: nonzero; opacity: 1;"
+                            transform="  matrix(1 0 0 1 0 0) " />
+                        <circle cx="63.442" cy="19.202" r="1.102"
+                            style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(59,158,65); fill-rule: nonzero; opacity: 1;"
+                            transform="  matrix(1 0 0 1 0 0) " />
+                        <circle cx="66.772" cy="37.01199999999999" r="1.102"
+                            style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(59,158,65); fill-rule: nonzero; opacity: 1;"
+                            transform="  matrix(1 0 0 1 0 0) " />
+                        <circle cx="44.778" cy="31.887999999999998" r="8.658"
+                            style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(49,139,54); fill-rule: nonzero; opacity: 1;"
+                            transform="  matrix(1 0 0 1 0 0) " />
+                        <path
+                            d="M 47.807 32.196 c -0.656 -0.899 -1.909 -1.137 -2.927 -1.244 c -1.222 -0.129 -1.527 -0.38 -1.602 -0.482 c -0.049 -0.066 -0.055 -0.188 -0.025 -0.333 c 0.101 -0.418 0.555 -0.781 1.105 -0.884 c 0.395 -0.074 0.794 -0.004 1.077 0.172 c 0.209 0.13 0.478 0.112 0.68 -0.028 l 0.531 -0.368 c 0.351 -0.243 0.378 -0.764 0.041 -1.026 c -0.513 -0.4 -1.168 -0.629 -1.866 -0.657 l -0.128 -0.684 c -0.065 -0.348 -0.4 -0.577 -0.747 -0.512 l -0.594 0.111 c -0.348 0.065 -0.577 0.4 -0.512 0.747 l 0.142 0.758 c -0.785 0.42 -1.366 1.116 -1.568 1.959 c -0.185 0.894 0.084 1.503 0.342 1.857 c 0.656 0.899 1.909 1.138 2.927 1.245 c 1.223 0.129 1.528 0.38 1.602 0.482 c 0.048 0.066 0.055 0.188 0.025 0.333 c -0.101 0.418 -0.555 0.781 -1.105 0.884 c -0.396 0.074 -0.793 0.004 -1.077 -0.172 c -0.209 -0.13 -0.477 -0.112 -0.68 0.028 l -0.531 0.368 c -0.354 0.246 -0.374 0.769 -0.034 1.034 c 0.477 0.371 1.076 0.596 1.718 0.646 l 0.133 0.712 c 0.065 0.348 0.4 0.577 0.747 0.512 l 0.594 -0.111 c 0.348 -0.065 0.577 -0.4 0.512 -0.747 l -0.133 -0.712 c 0.851 -0.41 1.481 -1.14 1.695 -2.03 C 48.334 33.159 48.065 32.55 47.807 32.196 z"
+                            style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(59,158,65); fill-rule: nonzero; opacity: 1;"
+                            transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+                        <path
+                            d="M 33.659 34.901 l -4.24 0.792 c -0.499 0.093 -0.978 -0.235 -1.071 -0.734 l 0 0 c -0.093 -0.499 0.235 -0.978 0.734 -1.071 l 4.24 -0.792 c 0.499 -0.093 0.978 0.235 1.071 0.734 v 0 C 34.486 34.329 34.158 34.808 33.659 34.901 z"
+                            style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(49,139,54); fill-rule: nonzero; opacity: 1;"
+                            transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+                        <path
+                            d="M 60.481 29.889 l -4.24 0.792 c -0.499 0.093 -0.978 -0.235 -1.071 -0.734 v 0 c -0.093 -0.499 0.235 -0.978 0.734 -1.071 l 4.24 -0.792 c 0.499 -0.093 0.978 0.235 1.071 0.734 v 0 C 61.308 29.317 60.979 29.796 60.481 29.889 z"
+                            style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(49,139,54); fill-rule: nonzero; opacity: 1;"
+                            transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+                        <path
+                            d="M 42.646 34.971 c -1.83 1.367 -4.554 2.647 -8.337 0.936 l -10.512 -4.862 c -1.677 -0.611 -3.334 -0.461 -5.09 -0.299 c -1.876 0.172 -3.824 0.349 -5.859 -0.411 l -3.286 -1.223 l 2.387 -8.245 C 23.677 19.248 41.117 30.351 42.646 34.971 z"
+                            style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(238,198,179); fill-rule: nonzero; opacity: 1;"
+                            transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+                        <path
+                            d="M 25.735 23.069 c 6.442 0.912 13.179 5.479 16.932 9.533 c 0.62 0.67 0.61 1.709 -0.021 2.37 l 0 0 C 42.521 32.445 31.984 26.082 25.735 23.069 z"
+                            style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(205,149,123); fill-rule: nonzero; opacity: 1;"
+                            transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+                        <path
+                            d="M 11.592 7.711 H 2.01 C 0.9 7.711 0 8.611 0 9.721 v 23.759 c 0 1.11 0.9 2.01 2.01 2.01 h 9.582 c 1.11 0 2.01 -0.9 2.01 -2.01 V 9.721 C 13.601 8.611 12.702 7.711 11.592 7.711 z"
+                            style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(52,57,54); fill-rule: nonzero; opacity: 1;"
+                            transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+                        <path
+                            d="M 11.592 35.489 h -0.988 c 0.008 -0.075 0.023 -0.148 0.023 -0.225 V 11.505 c 0 -1.11 -0.9 -2.009 -2.009 -2.009 H 0.023 C 0.136 8.493 0.977 7.711 2.01 7.711 h 9.582 c 1.11 0 2.009 0.9 2.009 2.009 v 23.759 C 13.601 34.589 12.702 35.489 11.592 35.489 z"
+                            style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(46,50,47); fill-rule: nonzero; opacity: 1;"
+                            transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+                    </g>
+                </svg>
+                <span class="sr-only">Cobrar</span>
+            </button>
+            <div id="tooltip-print" role="tooltip"
+                class="absolute z-10 invisible inline-block w-auto px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                Cobrar
+                <div class="tooltip-arrow" data-popper-arrow></div>
+            </div>
+            <button type="button" data-tooltip-target="tooltip-download" data-tooltip-placement="left"
+                class="flex justify-center items-center w-[52px] h-[52px] text-gray-500 hover:text-gray-900 bg-white rounded-lg border border-gray-200 dark:border-gray-600 shadow-sm dark:hover:text-white dark:text-gray-400 hover:bg-gray-50 dark:bg-gray-700 dark:hover:bg-gray-600 focus:ring-4 focus:ring-gray-300 focus:outline-none dark:focus:ring-gray-400">
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"
+                    width="30" height="30" viewBox="0 0 256 256" xml:space="preserve">
+
+                    <defs>
+                    </defs>
+                    <g style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: none; fill-rule: nonzero; opacity: 1;"
+                        transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)">
+                        <path
+                            d="M 87.202 41.844 H 2.798 C 1.253 41.844 0 40.592 0 39.047 V 9.252 c 0 -1.545 1.253 -2.798 2.798 -2.798 h 84.405 C 88.747 6.454 90 7.707 90 9.252 v 29.795 C 90 40.592 88.747 41.844 87.202 41.844 z"
+                            style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(52,57,54); fill-rule: nonzero; opacity: 1;"
+                            transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+                        <path
+                            d="M 82.116 24.149 H 7.884 V 17.73 c 0 -1.366 1.108 -2.474 2.474 -2.474 h 69.283 c 1.366 0 2.474 1.108 2.474 2.474 V 24.149 z"
+                            style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(46,50,47); fill-rule: nonzero; opacity: 1;"
+                            transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+                        <rect x="7.88" y="24.15" rx="0" ry="0" width="74.23" height="8.89"
+                            style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(84,92,86); fill-rule: nonzero; opacity: 1;"
+                            transform=" matrix(1 0 0 1 0 0) " />
+                        <rect x="7.88" y="24.15" rx="0" ry="0" width="74.23" height="3.72"
+                            style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(108,117,108); fill-rule: nonzero; opacity: 1;"
+                            transform=" matrix(1 0 0 1 0 0) " />
+                        <path
+                            d="M 25.642 24.149 l 0 57.041 c 0 1.301 1.055 2.355 2.355 2.355 h 34.006 c 1.301 0 2.355 -1.055 2.355 -2.355 V 24.149 H 25.642 z"
+                            style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(49,139,54); fill-rule: nonzero; opacity: 1;"
+                            transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+                        <path
+                            d="M 28.859 24.149 v 49.454 c 3.874 0 7.014 3.14 7.014 7.014 h 18.292 c 0 -3.874 3.14 -7.014 7.014 -7.014 V 24.149 H 28.859 z"
+                            style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(59,158,65); fill-rule: nonzero; opacity: 1;"
+                            transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+                        <circle cx="30.536" cy="78.866" r="1.756"
+                            style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(59,158,65); fill-rule: nonzero; opacity: 1;"
+                            transform="  matrix(1 0 0 1 0 0) " />
+                        <circle cx="59.426" cy="78.866" r="1.756"
+                            style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(59,158,65); fill-rule: nonzero; opacity: 1;"
+                            transform="  matrix(1 0 0 1 0 0) " />
+                        <circle cx="45.003" cy="45.903000000000006" r="13.803"
+                            style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(49,139,54); fill-rule: nonzero; opacity: 1;"
+                            transform="  matrix(1 0 0 1 0 0) " />
+                        <path
+                            d="M 46.367 41.248 c -1.6 0.765 -2.341 2.659 -2.807 4.222 c -0.56 1.878 -1.043 2.282 -1.224 2.369 c -0.118 0.057 -0.311 0.031 -0.529 -0.058 c -0.625 -0.28 -1.062 -1.098 -1.062 -1.991 c 0 -0.641 0.226 -1.245 0.585 -1.638 c 0.265 -0.29 0.316 -0.716 0.155 -1.074 l -0.421 -0.939 c -0.278 -0.621 -1.087 -0.816 -1.596 -0.365 c -0.777 0.687 -1.328 1.646 -1.575 2.733 h -1.11 c -0.564 0 -1.021 0.457 -1.021 1.021 v 0.964 c 0 0.564 0.457 1.021 1.021 1.021 h 1.229 c 0.429 1.353 1.349 2.467 2.612 3.032 c 1.347 0.552 2.381 0.309 3.01 0.007 c 1.601 -0.765 2.342 -2.658 2.808 -4.222 c 0.56 -1.879 1.042 -2.283 1.224 -2.37 c 0.117 -0.056 0.311 -0.03 0.529 0.059 c 0.625 0.28 1.062 1.099 1.062 1.991 c 0 0.641 -0.225 1.245 -0.584 1.637 c -0.265 0.29 -0.315 0.715 -0.155 1.074 l 0.421 0.939 c 0.281 0.627 1.096 0.812 1.611 0.356 c 0.721 -0.639 1.249 -1.511 1.516 -2.503 h 1.154 c 0.564 0 1.021 -0.457 1.021 -1.021 v -0.964 c 0 -0.564 -0.457 -1.021 -1.021 -1.021 h -1.155 c -0.394 -1.454 -1.354 -2.655 -2.685 -3.251 C 48.031 40.704 46.997 40.947 46.367 41.248 z"
+                            style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(59,158,65); fill-rule: nonzero; opacity: 1;"
+                            transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+                        <path
+                            d="M 46.464 64.213 v 6.877 c 0 0.809 -0.655 1.464 -1.464 1.464 h 0 c -0.809 0 -1.464 -0.655 -1.464 -1.464 v -6.877 c 0 -0.809 0.655 -1.464 1.464 -1.464 h 0 C 45.809 62.749 46.464 63.404 46.464 64.213 z"
+                            style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(49,139,54); fill-rule: nonzero; opacity: 1;"
+                            transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+                        <path
+                            d="M 43.536 24.149 v 3.439 c 0 0.809 0.655 1.464 1.464 1.464 s 1.464 -0.655 1.464 -1.464 v -3.439 H 43.536 z"
+                            style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(49,139,54); fill-rule: nonzero; opacity: 1;"
+                            transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+                    </g>
+                </svg>
+                <span class="sr-only">Retirar</span>
+            </button>
+            <div id="tooltip-download" role="tooltip"
+                class="absolute z-10 invisible inline-block w-auto px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                Retirar
+                <div class="tooltip-arrow" data-popper-arrow></div>
+            </div>
+            <button type="button" data-tooltip-target="tooltip-copy" data-tooltip-placement="left"
+                class="flex justify-center items-center w-[52px] h-[52px] text-gray-500 hover:text-gray-900 bg-white rounded-lg border border-gray-200 dark:border-gray-600 dark:hover:text-white shadow-sm dark:text-gray-400 hover:bg-gray-50 dark:bg-gray-700 dark:hover:bg-gray-600 focus:ring-4 focus:ring-gray-300 focus:outline-none dark:focus:ring-gray-400">
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"
+                    width="30" height="30" viewBox="0 0 256 256" xml:space="preserve">
+
+                    <defs>
+                    </defs>
+                    <g style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: none; fill-rule: nonzero; opacity: 1;"
+                        transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)">
+                        <path
+                            d="M 84.83 72.913 H 5.17 c -2.855 0 -5.17 -2.315 -5.17 -5.17 V 22.257 c 0 -2.855 2.315 -5.17 5.17 -5.17 h 79.66 c 2.855 0 5.17 2.315 5.17 5.17 v 45.485 C 90 70.598 87.685 72.913 84.83 72.913 z"
+                            style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(54,59,56); fill-rule: nonzero; opacity: 1;"
+                            transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+                        <path
+                            d="M 84.83 17.087 h -1.404 v 23.531 c 0 16.021 -12.987 29.008 -29.008 29.008 H 0.366 c 0.754 1.922 2.615 3.287 4.804 3.287 h 79.66 c 2.855 0 5.17 -2.315 5.17 -5.17 V 22.257 C 90 19.402 87.685 17.087 84.83 17.087 z"
+                            style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(46,50,47); fill-rule: nonzero; opacity: 1;"
+                            transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+                        <path
+                            d="M 18.972 35.272 H 7.931 c -1.173 0 -2.123 -0.951 -2.123 -2.123 v -5.945 c 0 -1.173 0.951 -2.123 2.123 -2.123 h 11.041 c 1.173 0 2.123 0.951 2.123 2.123 v 5.945 C 21.095 34.321 20.145 35.272 18.972 35.272 z"
+                            style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(234,165,0); fill-rule: nonzero; opacity: 1;"
+                            transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+                        <path
+                            d="M 19.885 46.116 H 7.018 c -0.617 0 -1.117 -0.499 -1.117 -1.117 s 0.5 -1.117 1.117 -1.117 h 12.868 c 0.617 0 1.117 0.499 1.117 1.117 S 20.502 46.116 19.885 46.116 z"
+                            style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(84,92,86); fill-rule: nonzero; opacity: 1;"
+                            transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+                        <path
+                            d="M 38.684 46.116 H 25.817 c -0.617 0 -1.117 -0.499 -1.117 -1.117 s 0.5 -1.117 1.117 -1.117 h 12.868 c 0.617 0 1.117 0.499 1.117 1.117 S 39.301 46.116 38.684 46.116 z"
+                            style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(84,92,86); fill-rule: nonzero; opacity: 1;"
+                            transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+                        <path
+                            d="M 57.484 46.116 H 44.615 c -0.617 0 -1.117 -0.499 -1.117 -1.117 s 0.499 -1.117 1.117 -1.117 h 12.869 c 0.617 0 1.117 0.499 1.117 1.117 S 58.101 46.116 57.484 46.116 z"
+                            style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(84,92,86); fill-rule: nonzero; opacity: 1;"
+                            transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+                        <path
+                            d="M 76.283 46.116 H 63.414 c -0.617 0 -1.117 -0.499 -1.117 -1.117 s 0.499 -1.117 1.117 -1.117 h 12.869 c 0.617 0 1.117 0.499 1.117 1.117 S 76.9 46.116 76.283 46.116 z"
+                            style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(84,92,86); fill-rule: nonzero; opacity: 1;"
+                            transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+                        <path
+                            d="M 31.052 65.099 H 7.018 c -0.617 0 -1.117 -0.499 -1.117 -1.117 c 0 -0.617 0.5 -1.117 1.117 -1.117 h 24.034 c 0.617 0 1.117 0.499 1.117 1.117 C 32.169 64.6 31.669 65.099 31.052 65.099 z"
+                            style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(84,92,86); fill-rule: nonzero; opacity: 1;"
+                            transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+                        <path
+                            d="M 31.052 58.399 h -8.401 c -0.617 0 -1.117 -0.499 -1.117 -1.117 s 0.5 -1.117 1.117 -1.117 h 8.401 c 0.617 0 1.117 0.499 1.117 1.117 S 31.669 58.399 31.052 58.399 z"
+                            style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(84,92,86); fill-rule: nonzero; opacity: 1;"
+                            transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+                        <path
+                            d="M 73.658 55.457 c -1.58 0 -2.974 0.734 -3.908 1.862 c -0.935 -1.128 -2.329 -1.862 -3.908 -1.862 c -2.814 0 -5.096 2.282 -5.096 5.096 c 0 2.814 2.282 5.096 5.096 5.096 c 1.58 0 2.974 -0.734 3.908 -1.862 c 0.935 1.128 2.329 1.862 3.908 1.862 c 2.814 0 5.096 -2.282 5.096 -5.096 C 78.754 57.738 76.472 55.457 73.658 55.457 z"
+                            style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(84,92,86); fill-rule: nonzero; opacity: 1;"
+                            transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+                        <path
+                            d="M 70.668 64.649 c 0.838 0.622 1.865 0.999 2.99 0.999 c 2.814 0 5.096 -2.282 5.096 -5.096 c 0 -1.064 -0.328 -2.05 -0.885 -2.867 C 75.889 60.401 73.454 62.762 70.668 64.649 z"
+                            style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(73,79,74); fill-rule: nonzero; opacity: 1;"
+                            transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+                    </g>
+                </svg>
+                <span class="sr-only">Recargar cuenta</span>
+            </button>
+            <div id="tooltip-copy" role="tooltip"
+                class="absolute z-10 invisible inline-block w-auto px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                Recargar cuenta
+                <div class="tooltip-arrow" data-popper-arrow></div>
+            </div>
+        </div>
+        <button type="button" data-dial-toggle="speed-dial-menu-square" aria-controls="speed-dial-menu-square"
+            aria-expanded="false"
+            class="flex items-center justify-center text-white bg-blue-700 rounded-lg w-14 h-14 hover:bg-blue-800 dark:bg-blue-600 dark:hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 focus:outline-none dark:focus:ring-blue-800">
+            <svg class="w-5 h-5 transition-transform group-hover:rotate-45" aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M9 1v16M1 9h16" />
+            </svg>
+            <span class="sr-only">Open actions menu</span>
+        </button>
+    </div>
+
+    <footer class="bg-white rounded-lg shadow dark:bg-gray-900 m-4">
+        <div class="w-full max-w-screen-xl mx-auto p-4 md:py-8">
+            <div class="sm:flex sm:items-center sm:justify-between">
+                <a href="https://flowbite.com/" class="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse">
+                    <img src="https://flowbite.com/docs/images/logo.svg" class="h-8" alt="Flowbite Logo" />
+                    <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Bank</span>
+                </a>
+                <ul
+                    class="flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-400">
+                    <li>
+                        <a href="#" class="hover:underline me-4 md:me-6">Inicio</a>
+                    </li>
+                    <li>
+                        <a href="#" class="hover:underline me-4 md:me-6">Politica de privacidad</a>
+                    </li>
+                    <li>
+                        <a href="#" class="hover:underline me-4 md:me-6">Licencia</a>
+                    </li>
+                    <li>
+                        <a href="#" class="hover:underline">Contacto</a>
+                    </li>
+                </ul>
+            </div>
+            <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
+            <span class="block text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2024 <a
+                    href="https://flowbite.com/" class="hover:underline">Bank™</a>. Derechos reservados a
+                Flowbite.</span>
+        </div>
+    </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+</body>
+
+</html>
