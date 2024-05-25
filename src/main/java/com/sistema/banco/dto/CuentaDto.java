@@ -35,6 +35,11 @@ public class CuentaDto {
     public CuentaDto() {
     }
 
+    public CuentaDto(Cliente cliente, String numeroCuenta) {
+        this.numeroCuenta = numeroCuenta;
+        this.cliente = cliente;
+    }
+
     public Long getId() {
         return this.id;
     }

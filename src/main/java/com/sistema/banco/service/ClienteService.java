@@ -1,6 +1,7 @@
 package com.sistema.banco.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -12,7 +13,7 @@ public interface ClienteService {
 
     public void guardarCliente(Cliente cliente) throws Exception;
 
-    Cliente buscarCliente(String documento) throws Exception;
+    Optional<Cliente> buscarCliente(String documento) throws Exception;
 
     String rutaImagen(MultipartFile file) throws Exception;
 

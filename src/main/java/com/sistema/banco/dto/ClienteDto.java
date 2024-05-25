@@ -1,5 +1,7 @@
 package com.sistema.banco.dto;
 
+import com.sistema.banco.models.Cuenta;
+
 public class ClienteDto {
 
     private Long id;
@@ -13,6 +15,7 @@ public class ClienteDto {
     private String direccion;
     private String imagen;
     private String roles;
+    private Cuenta cuenta;
 
     public ClienteDto(Long id, String documento, String nombre, String apellido, String password, String telefono,
             String username, String direccion, String imagen, String roles) {
@@ -39,6 +42,17 @@ public class ClienteDto {
         this.direccion = direccion;
         this.imagen = imagen;
         this.roles = roles;
+    }
+
+    public ClienteDto(String documento, String nombre, String apellido, String password, String telefono,
+            String username, Cuenta cuenta) {
+        this.documento = documento;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.password = password;
+        this.telefono = telefono;
+        this.username = username;
+        this.cuenta = cuenta;
     }
 
     public ClienteDto(String documento, String nombre, String apellido, String password, String telefono,
@@ -148,6 +162,14 @@ public class ClienteDto {
 
     public void setRoles(String roles) {
         this.roles = roles;
+    }
+
+    public Cuenta getCuenta() {
+        return this.cuenta;
+    }
+
+    public void setCuenta(Cuenta cuenta) {
+        this.cuenta = cuenta;
     }
 
 }

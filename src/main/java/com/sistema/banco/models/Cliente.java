@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 
 @Entity
 public class Cliente {
@@ -21,6 +22,9 @@ public class Cliente {
     private String direccion;
     private String imagen;
     private String roles;
+
+    @OneToOne(mappedBy = "cliente")
+    private Cuenta cuenta;
 
     public Cliente(Long id, String documento, String nombre, String apellido, String password, String telefono,
             String username, String direccion, String imagen, String roles) {
@@ -59,6 +63,17 @@ public class Cliente {
         this.username = username;
     }
 
+    public Cliente(String documento, String nombre, String apellido, String password, String telefono,
+            String username, Cuenta cuenta) {
+        this.documento = documento;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.password = password;
+        this.telefono = telefono;
+        this.username = username;
+        this.cuenta = cuenta;
+    }
+
     public Cliente(String documento, String nombre, String apellido, String password, String telefono, String username,
             String direccion, String roles) {
         this.documento = documento;
@@ -76,6 +91,14 @@ public class Cliente {
 
     public Cliente(Long id) {
         this.id = id;
+    }
+
+    public Cuenta getCuenta() {
+        return this.cuenta;
+    }
+
+    public void setCuenta(Cuenta cuenta) {
+        this.cuenta = cuenta;
     }
 
     public Long getId() {

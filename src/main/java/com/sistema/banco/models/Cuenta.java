@@ -23,7 +23,7 @@ public class Cuenta {
 
     private Double saldo;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
 
@@ -43,6 +43,11 @@ public class Cuenta {
         this.saldo = saldo;
         this.cliente = cliente;
         this.transacciones = transacciones;
+    }
+
+    public Cuenta(Cliente cliente, String numeroCuenta) {
+        this.numeroCuenta = numeroCuenta;
+        this.cliente = cliente;
     }
 
     public Cuenta() {
