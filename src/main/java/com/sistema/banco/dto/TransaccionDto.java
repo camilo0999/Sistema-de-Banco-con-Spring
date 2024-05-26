@@ -75,4 +75,12 @@ public class TransaccionDto {
         this.cuenta = cuenta;
     }
 
+    public String getEmisor() {
+        return this.emisor;
+    }
+
+    public void setEmisor(String emisor) {
+        this.emisor = emisor;
+    }
+
 }

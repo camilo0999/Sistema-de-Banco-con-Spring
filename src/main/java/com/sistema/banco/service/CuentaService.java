@@ -9,7 +9,7 @@ public interface CuentaService {
 
     public void guardarCuenta(Cuenta cuenta) throws Exception;
 
-    Cuenta buscarCuenta(Long id) throws Exception;
+    Cuenta buscarCuenta(String numeroCuenta) throws Exception;
 
     public void recargarCuenta(String numeroCuenta, Double saldo, String emisor) throws Exception;
 

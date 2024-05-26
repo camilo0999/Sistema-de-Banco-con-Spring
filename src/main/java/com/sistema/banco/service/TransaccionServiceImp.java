@@ -2,6 +2,7 @@ package com.sistema.banco.service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.stereotype.Service;
 
@@ -47,6 +48,11 @@ public class TransaccionServiceImp implements TransaccionService {
             System.out.println("Error en la transacion: " + e);
         }
 
+    }
+
+    @Override
+    public Set<Transaccion> movimientosCuenta(Cuenta cuenta) throws Exception {
+        return transaccionRepository.findAllByCuenta(cuenta);
     }
 
 }

@@ -3,7 +3,7 @@ package com.sistema.banco.service;
 import java.io.IOException;
 import java.util.Base64;
 import java.util.List;
-import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -11,6 +11,7 @@ import org.springframework.util.StringUtils;
 
 import com.sistema.banco.models.Cliente;
 import com.sistema.banco.models.Cuenta;
+import com.sistema.banco.models.Transaccion;
 import com.sistema.banco.repository.ClienteRepository;
 
 @Service
@@ -20,9 +21,13 @@ public class ClienteServiceImp implements ClienteService {
 
     private final CuentaService cuentaService;
 
-    public ClienteServiceImp(ClienteRepository clienteRepository, CuentaService cuentaService) {
+    private final TransaccionService transaccionService;
+
+    public ClienteServiceImp(ClienteRepository clienteRepository, CuentaService cuentaService,
+            TransaccionService transaccionService) {
         this.clienteRepository = clienteRepository;
         this.cuentaService = cuentaService;
+        this.transaccionService = transaccionService;
     }
 
     @Override
@@ -60,7 +65,7 @@ public class ClienteServiceImp implements ClienteService {
     }
 
     @Override
-    public Optional<Cliente> buscarCliente(String documento) throws Exception {
+    public Cliente buscarCliente(String documento) throws Exception {
 
         return clienteRepository.findByDocumento(documento);
     }
@@ -104,12 +109,30 @@ public class ClienteServiceImp implements ClienteService {
     public void eliminarCliente(String documento) throws Exception {
         try {
 
-            Cliente cliente = clienteRepository.findByDocumento(documento).get();
+            Cliente cliente = clienteRepository.findByDocumento(documento);
             clienteRepository.delete(cliente);
 
         } catch (Exception e) {
             System.out.println("Error al eliminar al cliente: " + e);
         }
+    }
+
+    @Override
+    public Set<Transaccion> mostrarMovimientos(String numeroCuenta) throws Exception {
+
+        try {
+
+            Cuenta cuenta = cuentaService.buscarCuenta(numeroCuenta);
+
+            Set<Transaccion> lista = transaccionService.movimientosCuenta(cuenta);
+
+            return lista;
+
+        } catch (Exception e) {
+            System.out.println("Error en ver movimientos: " + e);
+        }
+        return null;
+
     }
 
 }

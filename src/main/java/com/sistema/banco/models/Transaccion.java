@@ -2,6 +2,8 @@ package com.sistema.banco.models;
 
 import java.time.LocalDateTime;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -83,6 +85,14 @@ public class Transaccion {
 
     public void setCuenta(Cuenta cuenta) {
         this.cuenta = cuenta;
+    }
+
+    public String getEmisor() {
+        return this.emisor;
+    }
+
+    public void setEmisor(String emisor) {
+        this.emisor = emisor;
     }
 
 }

@@ -37,8 +37,8 @@ public class CuentaServiceImp implements CuentaService {
     }
 
     @Override
-    public Cuenta buscarCuenta(Long id) throws Exception {
-        Cuenta usuario = cuentaRepository.findById(id).get();
+    public Cuenta buscarCuenta(String numeroCuenta) throws Exception {
+        Cuenta usuario = cuentaRepository.findByNumeroCuenta(numeroCuenta);
         return usuario;
     }
 
@@ -46,7 +46,7 @@ public class CuentaServiceImp implements CuentaService {
     public void transferenciaCliente(Long cuentaId, Double monto, String documento) throws Exception {
 
         Cliente clienteEmisor = clienteRepository.findById(cuentaId).get();
-        Cliente clienteReceptor = clienteRepository.findByDocumento(documento).get();
+        Cliente clienteReceptor = clienteRepository.findByDocumento(documento);
 
         try {
 
