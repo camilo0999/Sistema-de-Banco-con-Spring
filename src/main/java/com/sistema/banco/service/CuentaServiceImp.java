@@ -1,6 +1,8 @@
 package com.sistema.banco.service;
 
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.stereotype.Service;
 
 import com.sistema.banco.models.Cliente;
@@ -13,10 +15,13 @@ public class CuentaServiceImp implements CuentaService {
 
     private final CuentaRepository cuentaRepository;
     private final ClienteRepository clienteRepository;
+    private final TransaccionService transaccionService;
 
-    public CuentaServiceImp(CuentaRepository cuentaRepository, ClienteRepository clienteRepository) {
+    public CuentaServiceImp(CuentaRepository cuentaRepository, ClienteRepository clienteRepository,
+            TransaccionService transaccionService) {
         this.cuentaRepository = cuentaRepository;
         this.clienteRepository = clienteRepository;
+        this.transaccionService = transaccionService;
     }
 
     @Override
@@ -27,6 +32,7 @@ public class CuentaServiceImp implements CuentaService {
 
     @Override
     public void guardarCuenta(Cuenta cuenta) throws Exception {
+        cuenta.setSaldo(0.0);
         cuentaRepository.save(cuenta);
     }
 
@@ -34,40 +40,6 @@ public class CuentaServiceImp implements CuentaService {
     public Cuenta buscarCuenta(Long id) throws Exception {
         Cuenta usuario = cuentaRepository.findById(id).get();
         return usuario;
-    }
-
-    @Override
-    public void depositarCuenta(Long cuentaId, Double monto) throws Exception {
-
-        try {
-
-            Cuenta cuenta = cuentaRepository.findById(cuentaId).get();
-            cuenta.setSaldo(monto);
-
-        } catch (Exception e) {
-            System.out.println("Error al depositar a la cuenta N° " + cuentaId + ": " + e);
-        }
-
-    }
-
-    @Override
-    public void retirarCuenta(Long cuentaId, Double monto) throws Exception {
-
-        try {
-            Cuenta cuenta = cuentaRepository.findById(cuentaId).get();
-            if (monto > cuenta.getSaldo()) {
-
-                System.out.println("Saldo insuficiente, no puedes retirar esta cantidad: " + monto);
-                System.out.println("Yu saldo disponible: " + cuenta.getSaldo());
-            } else {
-                cuenta.setSaldo(cuenta.getSaldo() - monto);
-                System.out.println("Retiro exitoso");
-            }
-
-        } catch (Exception e) {
-            System.out.println("Error al retirar en la cuenta N° " + cuentaId + ":" + e);
-        }
-
     }
 
     @Override
@@ -82,6 +54,27 @@ public class CuentaServiceImp implements CuentaService {
             System.out.println("Error en la transferencia: " + e);
         }
 
+    }
+
+    @Override
+    public void recargarCuenta(String numeroCuenta, Double monto, String emisor) throws Exception {
+        try {
+
+            Cuenta cuenta = cuentaRepository.findByNumeroCuenta(numeroCuenta);
+
+            cuenta.setSaldo(cuenta.getSaldo() + monto);
+
+            transaccionService.guardarTransacion(cuenta, monto, emisor);
+
+        } catch (Exception e) {
+            System.out.println("Error al recargar la cuenta: " + e);
+        }
+    }
+
+    @Override
+    public void retirarCuenta(Long cuentaId, Double monto) throws Exception {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'retirarCuenta'");
     }
 
 }

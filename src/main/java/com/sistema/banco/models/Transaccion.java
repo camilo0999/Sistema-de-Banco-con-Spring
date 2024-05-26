@@ -18,7 +18,7 @@ public class Transaccion {
 
     private Double monto;
 
-    private String tipo;
+    private String emisor;
 
     private LocalDateTime fecha;
 
@@ -26,17 +26,17 @@ public class Transaccion {
     @JoinColumn(name = "cuenta_id", nullable = false)
     private Cuenta cuenta;
 
-    public Transaccion(Long id, Double monto, String tipo, LocalDateTime fecha, Cuenta cuenta) {
+    public Transaccion(Long id, Double monto, String emisor, LocalDateTime fecha, Cuenta cuenta) {
         this.id = id;
         this.monto = monto;
-        this.tipo = tipo;
+        this.emisor = emisor;
         this.fecha = fecha;
         this.cuenta = cuenta;
     }
 
-    public Transaccion(Double monto, String tipo, LocalDateTime fecha, Cuenta cuenta) {
+    public Transaccion(Double monto, String emisor, LocalDateTime fecha, Cuenta cuenta) {
         this.monto = monto;
-        this.tipo = tipo;
+        this.emisor = emisor;
         this.fecha = fecha;
         this.cuenta = cuenta;
     }
@@ -62,11 +62,11 @@ public class Transaccion {
     }
 
     public String getTipo() {
-        return this.tipo;
+        return this.emisor;
     }
 
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
+    public void setTipo(String emisor) {
+        this.emisor = emisor;
     }
 
     public LocalDateTime getFecha() {

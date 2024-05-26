@@ -11,7 +11,7 @@ public interface CuentaService {
 
     Cuenta buscarCuenta(Long id) throws Exception;
 
-    public void depositarCuenta(Long cuentaId, Double monto) throws Exception;
+    public void recargarCuenta(String numeroCuenta, Double saldo, String emisor) throws Exception;
 
     public void retirarCuenta(Long cuentaId, Double monto) throws Exception;
 

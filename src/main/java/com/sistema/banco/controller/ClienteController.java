@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.sistema.banco.dto.ClienteDto;
 import com.sistema.banco.mappers.ClienteMappers;
 import com.sistema.banco.models.Cliente;
-import com.sistema.banco.models.Cuenta;
-import com.sistema.banco.repository.CuentaRepository;
 import com.sistema.banco.service.ClienteService;
 
 import jakarta.validation.Valid;
@@ -24,13 +22,10 @@ public class ClienteController {
 
     private final ClienteService clienteService;
     private final ClienteMappers clienteMappers;
-    private final CuentaRepository cuentaRepository;
 
-    public ClienteController(ClienteService clienteService, ClienteMappers clienteMappers,
-            CuentaRepository cuentaRepository) {
+    public ClienteController(ClienteService clienteService, ClienteMappers clienteMappers) {
         this.clienteService = clienteService;
         this.clienteMappers = clienteMappers;
-        this.cuentaRepository = cuentaRepository;
     }
 
     @GetMapping("/inicio")
