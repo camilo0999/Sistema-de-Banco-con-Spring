@@ -38,10 +38,15 @@ public class AdminController {
     }
 
     @PostMapping("/recargar")
-    public RedirectView guardarProducto(@RequestParam("numeroCuenta") String numeroCuenta,
-            @RequestParam("monto") Double monto) {
+    public String guardarProducto(@RequestParam("numeroCuenta") String numeroCuenta,
+            @RequestParam("monto") Double monto) throws Exception {
 
-        return new RedirectView("/admin/inicio");
+        String emisor = "CORRESPONSAL-BANCARIO-BANK";
+
+        cuentaService.recargarCuenta(numeroCuenta, monto, emisor);
+        System.out.println(numeroCuenta);
+
+        return "redirect:/admin/inicio";
     }
 
 }
