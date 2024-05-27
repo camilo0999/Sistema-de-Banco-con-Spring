@@ -5,6 +5,7 @@ import java.util.Set;
 import com.sistema.banco.models.Cliente;
 import com.sistema.banco.models.Transaccion;
 
+//De acuerdo al patro de diseño Dto estoy mappiando la entidad Cuenta del la base de datos para enviar los datos al cliente.
 public class CuentaDto {
 
     private Long id;

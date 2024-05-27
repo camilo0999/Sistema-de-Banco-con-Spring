@@ -2,32 +2,39 @@ package com.sistema.banco.models;
 
 import java.time.LocalDateTime;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
+//Creacion de la entidad de la base de datos transaccion con sus respectivos atributos,
+//gerando sus Getter y Setter para la manipulacion de los datos.
 @Entity
+@Table(name = "transaccion")
 public class Transaccion {
 
+    // la estregia es un id unico por tabla
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "monto")
     private Double monto;
 
+    @Column(name = "emisor")
     private String emisor;
 
+    @Column(name = "Fecha_hora")
     private LocalDateTime fecha;
-
     @ManyToOne
     @JoinColumn(name = "cuenta_id", nullable = false)
     private Cuenta cuenta;
 
+    // Metodos constructores
     public Transaccion(Long id, Double monto, String emisor, LocalDateTime fecha, Cuenta cuenta) {
         this.id = id;
         this.monto = monto;
@@ -46,6 +53,8 @@ public class Transaccion {
     public Transaccion() {
 
     }
+
+    // Getter y Setter para manipular los datos
 
     public Long getId() {
         return this.id;

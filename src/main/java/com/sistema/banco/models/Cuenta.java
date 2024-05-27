@@ -3,6 +3,7 @@ package com.sistema.banco.models;
 import java.util.Set;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -11,18 +12,28 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 
+//Creacion de la entidad de la base de datos cuenta con sus respectivos atributos,
+//gerando sus Getter y Setter para la manipulacion de los datos.
 @Entity
+@Table(name = "cuenta")
 public class Cuenta {
 
+    // la estregia es un id unico por tabla
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    // Numeros de cuentas unicos
+    @Column(name = "numeroCuenta", unique = true)
     private String numeroCuenta;
 
+    @Column(name = "saldo")
     private Double saldo;
 
+    // Estoy definiendo que la carga sea peresoza, osea que solo carguen estos datos
+    // cuando los llame.
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
@@ -30,6 +41,7 @@ public class Cuenta {
     @OneToMany(mappedBy = "cuenta", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Transaccion> transacciones;
 
+    // Metodoso constructores
     public Cuenta(Long id, String numeroCuenta, Double saldo, Cliente cliente, Set<Transaccion> transacciones) {
         this.id = id;
         this.numeroCuenta = numeroCuenta;
@@ -52,6 +64,8 @@ public class Cuenta {
 
     public Cuenta() {
     }
+
+    // Metodos getter y setter para la manipulacion de los datos.
 
     public Long getId() {
         return this.id;

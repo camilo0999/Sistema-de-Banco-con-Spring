@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 import com.sistema.banco.models.Cuenta;
 
+//De acuerdo al patro de diseño Dto estoy mappiando la entidad Transaccion del la base de datos para enviar los datos al cliente.
 public class TransaccionDto {
 
     private Long id;
@@ -55,7 +56,7 @@ public class TransaccionDto {
         return this.emisor;
     }
 
-    public void setTipo(String emisor) {
+    public void setEmisor(String emisor) {
         this.emisor = emisor;
     }
 
@@ -77,10 +78,6 @@ public class TransaccionDto {
 
     public String getEmisor() {
         return this.emisor;
-    }
-
-    public void setEmisor(String emisor) {
-        this.emisor = emisor;
     }
 
 }

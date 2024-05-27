@@ -2,6 +2,7 @@ package com.sistema.banco.dto;
 
 import com.sistema.banco.models.Cuenta;
 
+//De acuerdo al patro de diseño Dto estoy mappiando la entidad Cliente del la base de datos para enviar los datos al cliente.
 public class ClienteDto {
 
     private Long id;
