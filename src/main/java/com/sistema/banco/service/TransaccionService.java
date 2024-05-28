@@ -14,4 +14,6 @@ public interface TransaccionService {
 
     public void guardarTransacion(Cuenta cuenta, Double saldo, String emisor) throws Exception;
 
+    public void guardarEnvio(Cuenta cuenta, Double saldo, String receptor) throws Exception;
+
 }

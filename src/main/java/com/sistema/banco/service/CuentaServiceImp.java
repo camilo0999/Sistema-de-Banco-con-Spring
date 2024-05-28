@@ -1,57 +1,93 @@
 package com.sistema.banco.service;
 
+import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import com.sistema.banco.models.Cliente;
 import com.sistema.banco.models.Cuenta;
-import com.sistema.banco.repository.ClienteRepository;
 import com.sistema.banco.repository.CuentaRepository;
 
 @Service
 public class CuentaServiceImp implements CuentaService {
 
+    private static Logger logger = LoggerFactory.getLogger(CuentaServiceImp.class);
+
     private final CuentaRepository cuentaRepository;
-    private final ClienteRepository clienteRepository;
     private final TransaccionService transaccionService;
 
-    public CuentaServiceImp(CuentaRepository cuentaRepository, ClienteRepository clienteRepository,
+    public CuentaServiceImp(CuentaRepository cuentaRepository,
             TransaccionService transaccionService) {
         this.cuentaRepository = cuentaRepository;
-        this.clienteRepository = clienteRepository;
         this.transaccionService = transaccionService;
     }
 
     @Override
     public List<Cuenta> listaCuenta() throws Exception {
-        List<Cuenta> lista = cuentaRepository.findAll();
-        return lista;
+        try {
+
+            logger.info("Listado de cuenta");
+            return cuentaRepository.findAll();
+
+        } catch (Exception e) {
+            logger.error("Error al listar las cuentas", e);
+            return Collections.emptyList();
+        }
+
     }
 
     @Override
     public void guardarCuenta(Cuenta cuenta) throws Exception {
-        cuenta.setSaldo(0.0);
-        cuentaRepository.save(cuenta);
+
+        try {
+            if (cuenta != null) {
+                logger.info("Se registro corretamente la Cuenta: {}", cuenta.getNumeroCuenta());
+                cuenta.setSaldo(0.0);
+                cuentaRepository.save(cuenta);
+            } else {
+                logger.warn("No se puedo registrar la Cuenta, es null");
+            }
+        } catch (Exception e) {
+            logger.error("Error al crear Cuuenta: ", e);
+        }
+
     }
 
     @Override
     public Cuenta buscarCuenta(String numeroCuenta) throws Exception {
-        Cuenta usuario = cuentaRepository.findByNumeroCuenta(numeroCuenta);
-        return usuario;
-    }
-
-    @Override
-    public void transferenciaCliente(Long cuentaId, Double monto, String documento) throws Exception {
-
-        Cliente clienteEmisor = clienteRepository.findById(cuentaId).get();
-        Cliente clienteReceptor = clienteRepository.findByDocumento(documento);
 
         try {
 
+            return cuentaRepository.findByNumeroCuenta(numeroCuenta);
+
         } catch (Exception e) {
-            System.out.println("Error en la transferencia: " + e);
+            logger.error("Error al buscar la cuenta:", e);
+        }
+
+        return null;
+    }
+
+    @Override
+    public void transferenciaCliente(String numeroCuenta, Double monto, Cuenta cuenta) throws Exception {
+
+        try {
+
+            Cuenta receptor = buscarCuenta(numeroCuenta);
+
+            receptor.setSaldo(receptor.getSaldo() + monto);
+
+            cuenta.setSaldo(cuenta.getSaldo() - monto);
+
+            transaccionService.guardarTransacion(receptor, monto, cuenta.getCliente().getNombre());
+
+            transaccionService.guardarEnvio(cuenta, monto, receptor.getCliente().getNombre());
+
+            logger.info("Transaccion exitosa");
+
+        } catch (Exception e) {
+            logger.error("Error al realizar la transacion: ", e);
         }
 
     }
@@ -66,15 +102,30 @@ public class CuentaServiceImp implements CuentaService {
 
             transaccionService.guardarTransacion(cuenta, monto, emisor);
 
+            logger.info("Se realizo exitosamente la recarga de saldo del Admin: {}", emisor);
+
         } catch (Exception e) {
-            System.out.println("Error al recargar la cuenta: " + e);
+            logger.error("Error al realizar la recarga de saldo: ", e);
         }
     }
 
     @Override
-    public void retirarCuenta(Long cuentaId, Double monto) throws Exception {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'retirarCuenta'");
+    public void retirarCuenta(String numeroCuenta, Double monto) throws Exception {
+
+        try {
+
+            Cuenta cuenta = buscarCuenta(numeroCuenta);
+
+            cuenta.setSaldo(cuenta.getSaldo() - monto);
+
+            transaccionService.guardarTransacion(cuenta, monto, cuenta.getCliente().getNombre());
+
+            logger.info("Se realizo correctamente el retiro de la Cuenta N°: {}", numeroCuenta);
+
+        } catch (Exception e) {
+            logger.error("Error al realizar retiro: ", e);
+        }
+
     }
 
 }

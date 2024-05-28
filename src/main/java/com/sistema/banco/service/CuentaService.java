@@ -11,10 +11,10 @@ public interface CuentaService {
 
     Cuenta buscarCuenta(String numeroCuenta) throws Exception;
 
-    public void recargarCuenta(String numeroCuenta, Double saldo, String emisor) throws Exception;
+    public void retirarCuenta(String numeroCuenta, Double monto) throws Exception;
 
-    public void retirarCuenta(Long cuentaId, Double monto) throws Exception;
+    public void recargarCuenta(String numeroCuenta, Double monto, String emisor) throws Exception;
 
-    public void transferenciaCliente(Long cuentaId, Double monto, String documento) throws Exception;
+    public void transferenciaCliente(String numeroCuenta, Double monto, Cuenta cuenta) throws Exception;
 
 }

@@ -157,7 +157,7 @@ public class ClienteServiceImp implements ClienteService {
         } catch (Exception e) {
             logger.error("Error en ver movimientos: ", e);
         }
-        return null;
+        return Collections.emptySet();
 
     }
 
