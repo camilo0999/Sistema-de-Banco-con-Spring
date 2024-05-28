@@ -1,10 +1,13 @@
 package com.sistema.banco.service;
 
-import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Base64;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.util.StringUtils;
@@ -16,6 +19,8 @@ import com.sistema.banco.repository.ClienteRepository;
 
 @Service
 public class ClienteServiceImp implements ClienteService {
+
+    private static Logger logger = LoggerFactory.getLogger(ClienteServiceImp.class);
 
     private final ClienteRepository clienteRepository;
 
@@ -32,17 +37,26 @@ public class ClienteServiceImp implements ClienteService {
 
     @Override
     public List<Cliente> listaCliente() throws Exception {
-        List<Cliente> lista = clienteRepository.findAll();
-        return lista;
+
+        try {
+            logger.info("Listado de cliente");
+            return clienteRepository.findAll();
+
+        } catch (Exception e) {
+            logger.error("Error al cargar el listado de cliente: ", e);
+            return Collections.emptyList();
+        }
+
     }
 
     @Override
     public void guardarCliente(Cliente cliente) throws Exception {
-        if (clienteRepository.existsByUsername(cliente.getUsername())) {
-            throw new IllegalArgumentException("Este usuario ya esta registrado");
-        }
 
         try {
+
+            if (clienteRepository.existsByUsername(cliente.getUsername())) {
+                throw new IllegalArgumentException("Este usuario ya esta registrado");
+            }
 
             Cuenta cuenta = new Cuenta();
 
@@ -58,8 +72,10 @@ public class ClienteServiceImp implements ClienteService {
 
             clienteRepository.save(cliente);
 
-        } catch (Exception e) {
-            System.out.println("Error al crear cuenta de usuario: " + e);
+            logger.info("Se registro correctamente el Usuario: {}", cliente.getNombre());
+
+        } catch (SQLException e) {
+            logger.error("Error al registrar un cliente:", e);
         }
 
     }
@@ -72,16 +88,20 @@ public class ClienteServiceImp implements ClienteService {
 
     @Override
     public String rutaImagen(MultipartFile file) throws Exception {
-        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-        String imagenProducto;
-        if (fileName.contains("..")) {
-            System.out.println("Imagen no seleccionada");
-        }
         try {
-            imagenProducto = (Base64.getEncoder().encodeToString(file.getBytes()));
+            String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+            String imagenProducto;
+
+            if (fileName.contains("..")) {
+                logger.warn("Imagen no seleccionada");
+                throw new Exception("Nombre de archivo no válido: " + fileName);
+            }
+
+            imagenProducto = Base64.getEncoder().encodeToString(file.getBytes());
             return imagenProducto;
-        } catch (IOException e) {
-            e.printStackTrace();
+
+        } catch (Exception e) {
+            logger.error("Error en la ruta imagen:", e);
         }
         return null;
     }
@@ -91,16 +111,20 @@ public class ClienteServiceImp implements ClienteService {
 
         try {
 
-            Cliente buscarCliente = clienteRepository.findById(viejoCliente.getId()).get();
+            Cliente buscarCliente = clienteRepository.findById(viejoCliente.getId()).orElse(null);
+            if (buscarCliente != null) {
 
-            buscarCliente.setApellido(nuevCliente.getApellido());
-            buscarCliente.setDireccion(nuevCliente.getDireccion());
-            buscarCliente.setNombre(nuevCliente.getNombre());
-            buscarCliente.setTelefono(nuevCliente.getTelefono());
-            buscarCliente.setUsername(nuevCliente.getUsername());
+                buscarCliente.setApellido(nuevCliente.getApellido());
+                buscarCliente.setDireccion(nuevCliente.getDireccion());
+                buscarCliente.setNombre(nuevCliente.getNombre());
+                buscarCliente.setTelefono(nuevCliente.getTelefono());
+                buscarCliente.setUsername(nuevCliente.getUsername());
+            } else {
+                logger.warn("No se encontro al Cliente: {}", viejoCliente.getNombre());
+            }
 
         } catch (Exception e) {
-            System.out.println("Error al actualizar el Cliente: " + e);
+            logger.error("Error al actualizar Cliente:", e);
         }
 
     }
@@ -108,12 +132,15 @@ public class ClienteServiceImp implements ClienteService {
     @Override
     public void eliminarCliente(String documento) throws Exception {
         try {
-
             Cliente cliente = clienteRepository.findByDocumento(documento);
-            clienteRepository.delete(cliente);
+            if (cliente != null) {
+                clienteRepository.delete(cliente);
+            } else {
+                logger.info("No se encontro este documento en la base de datos: {}", documento);
+            }
 
         } catch (Exception e) {
-            System.out.println("Error al eliminar al cliente: " + e);
+            logger.error("Error al eliminar ", e);
         }
     }
 
@@ -124,12 +151,11 @@ public class ClienteServiceImp implements ClienteService {
 
             Cuenta cuenta = cuentaService.buscarCuenta(numeroCuenta);
 
-            Set<Transaccion> lista = transaccionService.movimientosCuenta(cuenta);
-
-            return lista;
+            logger.info("Listado de movimientos del Cliente: {}", cuenta.getCliente().getNombre());
+            return transaccionService.movimientosCuenta(cuenta);
 
         } catch (Exception e) {
-            System.out.println("Error en ver movimientos: " + e);
+            logger.error("Error en ver movimientos: ", e);
         }
         return null;
 
