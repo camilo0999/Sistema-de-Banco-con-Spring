@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 9.0.0.final using JasperReports Library version 6.21.0-4f56c4f36cd19e17675219a9ac4692d5f0f13b06  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="factura" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c351073a-9fe8-4973-80ce-9f757870d0f2">
+	<parameter name="Fecha" class="java.util.Date"/>
+	<parameter name="Emisor" class="java.lang.String"/>
+	<parameter name="Transacion_id" class="java.lang.Long"/>
+	<parameter name="Monto" class="java.lang.Double"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="112" splitType="Stretch">
+			<staticText>
+				<reportElement x="60" y="17" width="370" height="80" uuid="e06512f3-0e0f-4171-93dc-cc0336684132">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Black" size="26"/>
+				</textElement>
+				<text><![CDATA[¡Comprobante de electronico de Bank!]]></text>
+			</staticText>
+			<image>
+				<reportElement x="440" y="17" width="94" height="80" uuid="d50efc0d-98fb-420f-9816-07af0d9d13d9"/>
+				<imageExpression><![CDATA["logo.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<detail>
+		<band height="292" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<staticText>
+				<reportElement x="50" y="40" width="100" height="30" uuid="6335c132-b8f7-4c83-aaae-8db6191fd913"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="16"/>
+				</textElement>
+				<text><![CDATA[Fecha y hora:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="50" y="80" width="100" height="30" uuid="095aa86f-165d-4d57-b893-1fb942d3e16b"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="16"/>
+				</textElement>
+				<text><![CDATA[Estado:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="50" y="118" width="100" height="30" uuid="37a59048-53f1-4319-b58f-2ac3a335e6c5"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="16"/>
+				</textElement>
+				<text><![CDATA[Emisor:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="50" y="160" width="118" height="30" uuid="cc341b69-21f9-45c3-ab6d-9d554ccb0aa1"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="16"/>
+				</textElement>
+				<text><![CDATA[ID Transaccion:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="180" y="80" width="322" height="30" uuid="4f18ad81-1e6c-4dbb-b7aa-c95bd5fe2a8e"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Aprobado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="50" y="200" width="118" height="30" uuid="1fc9103b-c0f2-48f7-a677-16e732fdb4ad"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="16"/>
+				</textElement>
+				<text><![CDATA[Valor:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="180" y="40" width="322" height="30" uuid="ff80649d-39d5-4ab4-abe4-3f722b40db17"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{Fecha} != null ? $P{Fecha} : "Fecha no disponible"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="180" y="120" width="322" height="30" uuid="42a4bc6a-feb9-410e-a9e1-427a5e33db36"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{Emisor}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="180" y="160" width="322" height="30" uuid="f9006c61-445a-4c0b-8581-83958ac59ced"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{Transacion_id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="180" y="200" width="322" height="30" uuid="61513885-432c-4501-bf49-d1b8da775b00"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{Monto}]]></textFieldExpression>
+			</textField>
+			<rectangle radius="10">
+				<reportElement mode="Opaque" x="20" y="20" width="510" height="250" backcolor="rgba(45, 104, 252, 0.1254902)" uuid="d32860df-2104-49bb-8ae8-09efc6deb9d9"/>
+				<graphicElement>
+					<pen lineStyle="Dotted" lineColor="#8A8A8A"/>
+				</graphicElement>
+			</rectangle>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="95" splitType="Stretch">
+			<rectangle radius="10">
+				<reportElement mode="Opaque" x="20" y="10" width="510" height="71" forecolor="#707070" backcolor="rgba(227, 8, 5, 0.34901962)" uuid="d505e715-1cef-46dd-9ced-a341a5c692b0"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="110" y="15" width="404" height="60" uuid="4bd1136e-a144-4c16-b607-fe83ed2f2440"/>
+				<textElement>
+					<font size="16"/>
+				</textElement>
+				<text><![CDATA[Para cualquier reclamo referente con la transacion debe presentar el debido comprobante de transacion.]]></text>
+			</staticText>
+			<image>
+				<reportElement x="50" y="16" width="50" height="60" uuid="41faf63a-1b43-4c88-8c95-12dea076eff2">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<imageExpression><![CDATA[$P{REPORT_CONNECTION}.getClass().getResourceAsStream("/img/warning.png")]]></imageExpression>
+			</image>
+		</band>
+	</pageFooter>
+</jasperReport>

@@ -2,6 +2,9 @@ package com.sistema.banco.controller;
 
 import java.util.Set;
 
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,8 +18,10 @@ import com.sistema.banco.mappers.ClienteMappers;
 import com.sistema.banco.models.Cliente;
 import com.sistema.banco.models.Transaccion;
 import com.sistema.banco.service.ClienteService;
+import com.sistema.banco.service.TransaccionService;
 
 import jakarta.validation.Valid;
+import net.sf.jasperreports.engine.JRException;
 
 @Controller
 @RequestMapping("/cliente")
@@ -24,10 +29,13 @@ public class ClienteController {
 
     private final ClienteService clienteService;
     private final ClienteMappers clienteMappers;
+    private final TransaccionService transaccionService;
 
-    public ClienteController(ClienteService clienteService, ClienteMappers clienteMappers) {
+    public ClienteController(ClienteService clienteService, ClienteMappers clienteMappers,
+            TransaccionService transaccionService) {
         this.clienteService = clienteService;
         this.clienteMappers = clienteMappers;
+        this.transaccionService = transaccionService;
     }
 
     @GetMapping("/usuario/{id}")
@@ -59,6 +67,11 @@ public class ClienteController {
         return "clienteVista/movimientos";
     }
 
+    @PostMapping("/f/{id}/{numeroCuenta}")
+    public String clienteTrasaccion() {
+        return "";
+    }
+
     @PostMapping("/guardar")
     public String guardarCliente(@Valid @ModelAttribute("clienteDto") ClienteDto clienteDto) throws Exception {
 
@@ -67,6 +80,25 @@ public class ClienteController {
         clienteService.guardarCliente(cliente);
 
         return "redirect:/cliente/login";
+    }
+
+    @GetMapping("/reporte/{idTransacion}")
+    public ResponseEntity<byte[]> exportarFactura(@PathVariable(name = "idTransacion") Long idTransacion)
+            throws JRException {
+
+        try {
+
+            byte[] pdfReport = transaccionService.exportPdf(idTransacion);
+
+            return ResponseEntity.ok()
+                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=factura.pdf")
+                    .contentType(MediaType.APPLICATION_PDF)
+                    .body(pdfReport);
+
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(null);
+        }
+
     }
 
 }

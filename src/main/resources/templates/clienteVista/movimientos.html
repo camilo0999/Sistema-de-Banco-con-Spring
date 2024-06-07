@@ -46,7 +46,8 @@
                             aria-current="page">Cuenta</a>
                     </li>
                     <li th:object="${clienteDto}">
-                        <a href="#" th:href="@{/cliente/movimientos/{id}/{numeroCuenta}(id=${clienteDto.documento}, numeroCuenta=${clienteDto.cuenta.numeroCuenta})}"
+                        <a href="#"
+                            th:href="@{/cliente/movimientos/{id}/{numeroCuenta}(id=${clienteDto.documento}, numeroCuenta=${clienteDto.cuenta.numeroCuenta})}"
                             class="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500">Movimientos</a>
                     </li>
                     <li>
@@ -65,28 +66,37 @@
             class="w-full max-w-md p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
             <div class="flex items-center justify-between mb-4">
                 <h5 class="text-2xl font-bold leading-none text-gray-900 dark:text-white">Mis movimientos</h5>
-                <h5 class="text-xl font-bold text-blue-500 dark:text-blue-500">Valor</h5>
+                <h5 class="text-xl text-gray-400 dark:text-blue-500">Detalles</h5>
             </div>
             <div class="flow-root">
                 <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
                     <li class="py-3 sm:py-4" th:each="listaMovimientos: ${listaMovimientos}">
                         <div class="flex items-center">
                             <div class="flex-1 min-w-0 ms-4">
-                                <p class="text-sm font-medium text-gray-900 truncate dark:text-white" th:text="${listaMovimientos.emisor}">
-                                    p
+                                <p class="text-sm font-medium text-gray-900  dark:text-white">EMISOR: 
+                                    <samp 
+                                        th:text="${listaMovimientos.emisor}">
+  
+                                    </samp>
                                 </p>
-                                <p class="text-sm text-gray-500 truncate dark:text-gray-400 " th:text="${#dates.format(new java.util.Date(listaMovimientos.fecha), 'dd-MM-yyyy HH:mm')}">
-                                    
+
+
+                                <p class="text-sm text-gray-500 dark:text-gray-400 "
+                                    th:text="${#dates.format(new java.util.Date(listaMovimientos.fecha), 'dd-MM-yyyy HH:mm')}">
+
                                 </p>
                             </div>
-                            <p class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white" th:text="${listaMovimientos.monto}">
-                            
-                            </div>
+                            <p class="inline-flex m-4 font-semibold text-gray-900 dark:text-white"
+                                th:text="${listaMovimientos.monto}"></p>
+                            <a th:href="@{/cliente/reporte/{idTransaccion}(idTransaccion=${listaMovimientos.id})}"
+                                class="inline-flex text-base font-semibold text-blue-700 dark:text-white">Descargar</a>
+
                         </div>
-                    </li>
-                </ul>
             </div>
+            </li>
+            </ul>
         </div>
+    </div>
     </div>
 
 
