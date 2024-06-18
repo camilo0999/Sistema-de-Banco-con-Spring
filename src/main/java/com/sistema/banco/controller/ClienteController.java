@@ -12,12 +12,15 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sistema.banco.dto.ClienteDto;
 import com.sistema.banco.mappers.ClienteMappers;
 import com.sistema.banco.models.Cliente;
+import com.sistema.banco.models.Cuenta;
 import com.sistema.banco.models.Transaccion;
 import com.sistema.banco.service.ClienteService;
+import com.sistema.banco.service.CuentaService;
 import com.sistema.banco.service.TransaccionService;
 
 import jakarta.validation.Valid;
@@ -30,12 +33,14 @@ public class ClienteController {
     private final ClienteService clienteService;
     private final ClienteMappers clienteMappers;
     private final TransaccionService transaccionService;
+    private final CuentaService cuentaService;
 
     public ClienteController(ClienteService clienteService, ClienteMappers clienteMappers,
-            TransaccionService transaccionService) {
+            TransaccionService transaccionService, CuentaService cuentaService) {
         this.clienteService = clienteService;
         this.clienteMappers = clienteMappers;
         this.transaccionService = transaccionService;
+        this.cuentaService = cuentaService;
     }
 
     @GetMapping("/usuario/{id}")
@@ -67,9 +72,29 @@ public class ClienteController {
         return "clienteVista/movimientos";
     }
 
-    @PostMapping("/f/{id}/{numeroCuenta}")
-    public String clienteTrasaccion() {
-        return "";
+    @GetMapping("/transferencia/{id}/{numeroCuenta}")
+    public String transferenciaCLiente(@PathVariable(name = "id") String id,
+            @PathVariable(name = "numeroCuenta") String numeroCuenta, Model models) throws Exception {
+
+        Cliente cliente = clienteService.buscarCliente(id);
+
+        ClienteDto clienteDto = clienteMappers.toClienteDto(cliente);
+
+        models.addAttribute("clienteDto", clienteDto);
+        return "clienteVista/enviar";
+    }
+
+    @PostMapping("/transferencia/{id}/enviar")
+    public String clienteTransaccion(
+            @PathVariable(name = "id") String id,
+            @RequestParam(name = "numeroCuenta") String numeroCuenta,
+            @RequestParam(name = "monto") Double monto) throws Exception {
+
+        Cliente cliente = clienteService.buscarCliente(id);
+
+        clienteService.enviarTransferecnia(numeroCuenta, monto, cliente.getCuenta());
+
+        return "redirect:/cliente/movimientos/" + id + "/" + numeroCuenta;
     }
 
     @PostMapping("/guardar")

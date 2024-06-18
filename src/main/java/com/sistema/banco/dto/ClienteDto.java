@@ -8,16 +8,26 @@ public class ClienteDto {
     private Long id;
 
     private String documento;
+
     private String nombre;
+
     private String apellido;
+
     private String password;
+
     private String telefono;
+
     private String username;
+
     private String direccion;
+
     private String imagen;
+
     private String roles;
+
     private Cuenta cuenta;
 
+    // Los constructores que usa la clase
     public ClienteDto(Long id, String documento, String nombre, String apellido, String password, String telefono,
             String username, String direccion, String imagen, String roles) {
         this.id = id;
@@ -33,7 +43,8 @@ public class ClienteDto {
     }
 
     public ClienteDto(String documento, String nombre, String apellido, String password, String telefono,
-            String username, String direccion, String imagen, String roles) {
+            String username,
+            String direccion, String imagen, String roles) {
         this.documento = documento;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -43,6 +54,16 @@ public class ClienteDto {
         this.direccion = direccion;
         this.imagen = imagen;
         this.roles = roles;
+    }
+
+    public ClienteDto(String documento, String nombre, String apellido, String password, String telefono,
+            String username) {
+        this.documento = documento;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.password = password;
+        this.telefono = telefono;
+        this.username = username;
     }
 
     public ClienteDto(String documento, String nombre, String apellido, String password, String telefono,
@@ -57,7 +78,8 @@ public class ClienteDto {
     }
 
     public ClienteDto(String documento, String nombre, String apellido, String password, String telefono,
-            String username, String direccion, String roles) {
+            String username,
+            String direccion, String roles) {
         this.documento = documento;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -68,21 +90,21 @@ public class ClienteDto {
         this.roles = roles;
     }
 
-    public ClienteDto(String documento, String nombre, String apellido, String password, String telefono,
-            String username) {
-        this.documento = documento;
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.password = password;
-        this.telefono = telefono;
-        this.username = username;
-    }
-
     public ClienteDto() {
     }
 
     public ClienteDto(Long id) {
         this.id = id;
+    }
+
+    // Getter y Setter para manipular los datos
+
+    public Cuenta getCuenta() {
+        return this.cuenta;
+    }
+
+    public void setCuenta(Cuenta cuenta) {
+        this.cuenta = cuenta;
     }
 
     public Long getId() {
@@ -164,13 +186,4 @@ public class ClienteDto {
     public void setRoles(String roles) {
         this.roles = roles;
     }
-
-    public Cuenta getCuenta() {
-        return this.cuenta;
-    }
-
-    public void setCuenta(Cuenta cuenta) {
-        this.cuenta = cuenta;
-    }
-
 }

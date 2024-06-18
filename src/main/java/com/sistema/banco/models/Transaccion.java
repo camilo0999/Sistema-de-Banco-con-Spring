@@ -30,6 +30,7 @@ public class Transaccion {
 
     @Column(name = "Fecha_hora")
     private LocalDateTime fecha;
+
     @ManyToOne
     @JoinColumn(name = "cuenta_id", nullable = false)
     private Cuenta cuenta;

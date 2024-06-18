@@ -6,6 +6,7 @@ import java.util.Set;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.sistema.banco.models.Cliente;
+import com.sistema.banco.models.Cuenta;
 import com.sistema.banco.models.Transaccion;
 
 public interface ClienteService {
@@ -23,5 +24,7 @@ public interface ClienteService {
     public void eliminarCliente(String documento) throws Exception;
 
     Set<Transaccion> mostrarMovimientos(String numeroCuenta) throws Exception;
+
+    public void enviarTransferecnia(String numeroCuenta, Double monto, Cuenta cuenta) throws Exception;
 
 }

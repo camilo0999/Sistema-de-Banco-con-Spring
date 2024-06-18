@@ -45,7 +45,6 @@ public class Cliente {
     @Column(name = "foto")
     private String imagen;
 
-    @Column(name = "rol")
     private String roles;
 
     // Relacion de uno a uno con la tabla Cuenta, ya que un cliente solo tendra una

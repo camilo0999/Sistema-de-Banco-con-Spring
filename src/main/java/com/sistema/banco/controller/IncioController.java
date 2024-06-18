@@ -54,10 +54,4 @@ public class IncioController {
         return "redirect:/bank/login";
     }
 
-    @PostMapping("/perform_login")
-    public String iniciarSesion() {
-
-        return "redirect:/cliente/incio";
-    }
-
 }

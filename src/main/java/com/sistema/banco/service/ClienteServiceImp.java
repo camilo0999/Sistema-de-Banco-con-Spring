@@ -161,4 +161,9 @@ public class ClienteServiceImp implements ClienteService {
 
     }
 
+    @Override
+    public void enviarTransferecnia(String numeroCuenta, Double monto, Cuenta cuenta) throws Exception {
+        cuentaService.transferenciaCliente(numeroCuenta, monto, cuenta);
+    }
+
 }

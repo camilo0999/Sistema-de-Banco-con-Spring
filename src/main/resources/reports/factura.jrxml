@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 9.0.0.final using JasperReports Library version 6.21.0-4f56c4f36cd19e17675219a9ac4692d5f0f13b06  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="factura" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c351073a-9fe8-4973-80ce-9f757870d0f2">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="factura" pageWidth="595" pageHeight="600" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c351073a-9fe8-4973-80ce-9f757870d0f2" >
 	<parameter name="Fecha" class="java.util.Date"/>
 	<parameter name="Emisor" class="java.lang.String"/>
 	<parameter name="Transacion_id" class="java.lang.Long"/>
@@ -24,7 +24,7 @@
 			</staticText>
 			<image>
 				<reportElement x="440" y="17" width="94" height="80" uuid="d50efc0d-98fb-420f-9816-07af0d9d13d9"/>
-				<imageExpression><![CDATA["logo.png"]]></imageExpression>
+				<imageExpression class="java.lang.String"><![CDATA["C:/Users/Camilo/Desktop/Banco/banco/src/main/resources/reports/img/logo.png"]]></imageExpression>
 			</image>
 		</band>
 	</title>
@@ -126,7 +126,7 @@
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
-				<imageExpression><![CDATA[$P{REPORT_CONNECTION}.getClass().getResourceAsStream("/img/warning.png")]]></imageExpression>
+				<imageExpression class="java.lang.String"><![CDATA["C:/Users/Camilo/Desktop/Banco/banco/src/main/resources/reports/img/warning.png"]]></imageExpression>
 			</image>
 		</band>
 	</pageFooter>
