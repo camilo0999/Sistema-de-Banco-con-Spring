@@ -27,7 +27,7 @@ public class IncioController {
     }
 
     @GetMapping("/inicio")
-    public String mostrarInicio() {
+    public String MostrarInicio() {
         return "incioVista/index";
     }
 

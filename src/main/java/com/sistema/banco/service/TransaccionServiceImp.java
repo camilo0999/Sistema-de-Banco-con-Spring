@@ -33,9 +33,11 @@ public class TransaccionServiceImp implements TransaccionService {
     private static Logger logger = LoggerFactory.getLogger(TransaccionServiceImp.class);
 
     private final TransaccionRepository transaccionRepository;
+    private final CorreoServie correoServie;
 
-    public TransaccionServiceImp(TransaccionRepository transaccionRepository) {
+    public TransaccionServiceImp(TransaccionRepository transaccionRepository, CorreoServie correoServie) {
         this.transaccionRepository = transaccionRepository;
+        this.correoServie = correoServie;
     }
 
     @Override
@@ -72,6 +74,12 @@ public class TransaccionServiceImp implements TransaccionService {
             transaccion.setCuenta(cuenta);
 
             transaccionRepository.save(transaccion);
+
+            correoServie.enviarCorreo(cuenta.getCliente().getUsername(),
+
+                    "NOTIFICACION DE MOVIMIENTOS DE BANK",
+                    "Se ha generado un movimiento en la cuenta N: " + cuenta.getNumeroCuenta() + " de parte de "
+                            + emisor);
 
         } catch (Exception e) {
 

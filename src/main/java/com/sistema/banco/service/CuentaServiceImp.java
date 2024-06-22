@@ -18,8 +18,7 @@ public class CuentaServiceImp implements CuentaService {
     private final CuentaRepository cuentaRepository;
     private final TransaccionService transaccionService;
 
-    public CuentaServiceImp(CuentaRepository cuentaRepository,
-            TransaccionService transaccionService) {
+    public CuentaServiceImp(CuentaRepository cuentaRepository, TransaccionService transaccionService) {
         this.cuentaRepository = cuentaRepository;
         this.transaccionService = transaccionService;
     }
