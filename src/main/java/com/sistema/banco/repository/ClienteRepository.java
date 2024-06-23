@@ -5,6 +5,8 @@ import org.springframework.stereotype.Repository;
 
 import com.sistema.banco.models.Cliente;
 
+import java.util.Optional;
+
 // Creacion de la tabla cliente en la base de datos con todos los metodos de un CRUD
 @Repository
 public interface ClienteRepository extends JpaRepository<Cliente, Long> {
@@ -19,5 +21,6 @@ public interface ClienteRepository extends JpaRepository<Cliente, Long> {
 
     // Este metodo devuelve un boolean si el usuario existe o no en la tabla cliente
     boolean existsByUsername(String username);
+
 
 }
