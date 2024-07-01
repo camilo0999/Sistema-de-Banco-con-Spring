@@ -11,6 +11,9 @@ public class SecurityUser implements UserDetails {
 
     private Cliente cliente;
 
+    public SecurityUser(Cliente cliente) {
+        this.cliente = cliente;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -29,21 +32,21 @@ public class SecurityUser implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return cliente.isAccountNonExpired();
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return cliente.isAccountNonLocked();
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return cliente.isCredentialsNonExpired();
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return cliente.isEnabled();
     }
 }

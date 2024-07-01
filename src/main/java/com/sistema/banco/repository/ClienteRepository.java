@@ -13,7 +13,7 @@ public interface ClienteRepository extends JpaRepository<Cliente, Long> {
 
     // Devuelve un opcional de clientes, el cual busca si username existe en la base
     // de datos
-    Cliente findByUsername(String username);
+    Optional<Cliente> findByUsername(String username);
 
     // Devuelve un objecto de cliente, este metodo busca por el documento en la
     // tabla cliente
@@ -21,6 +21,5 @@ public interface ClienteRepository extends JpaRepository<Cliente, Long> {
 
     // Este metodo devuelve un boolean si el usuario existe o no en la tabla cliente
     boolean existsByUsername(String username);
-
 
 }

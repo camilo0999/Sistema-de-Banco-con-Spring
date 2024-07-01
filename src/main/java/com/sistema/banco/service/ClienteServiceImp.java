@@ -166,4 +166,11 @@ public class ClienteServiceImp implements ClienteService {
         cuentaService.transferenciaCliente(numeroCuenta, monto, cuenta);
     }
 
+    @Override
+    public Cliente buscarClienteUsername(String username) {
+
+        return clienteRepository.findByUsername(username).orElse(null);
+
+    }
+
 }

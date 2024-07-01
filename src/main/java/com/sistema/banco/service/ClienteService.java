@@ -3,12 +3,14 @@ package com.sistema.banco.service;
 import java.util.List;
 import java.util.Set;
 
+import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.sistema.banco.models.Cliente;
 import com.sistema.banco.models.Cuenta;
 import com.sistema.banco.models.Transaccion;
 
+@Service
 public interface ClienteService {
 
     List<Cliente> listaCliente() throws Exception;
@@ -26,5 +28,7 @@ public interface ClienteService {
     Set<Transaccion> mostrarMovimientos(String numeroCuenta) throws Exception;
 
     public void enviarTransferecnia(String numeroCuenta, Double monto, Cuenta cuenta) throws Exception;
+
+    public Cliente buscarClienteUsername(String username);
 
 }
