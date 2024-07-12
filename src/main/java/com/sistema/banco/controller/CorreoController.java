@@ -8,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.sistema.banco.dto.CorreoDto;
 import com.sistema.banco.dto.CorreoFileDto;
+import com.sistema.banco.dto.UsernameDto;
 import com.sistema.banco.service.CorreoServie;
 
 import java.io.File;
@@ -65,4 +66,26 @@ public class CorreoController {
             return ResponseEntity.status(500).body("Error al enviar el correo con el archivo: " + e.getMessage());
         }
     }
+
+    @PostMapping("/recuperar")
+    public ResponseEntity<?> recuperarContrasena(@RequestBody UsernameDto usernameDto) {
+        try {
+            // Llama al servicio para cambiar la contraseña
+            correoService.cambioContrasena(usernameDto.getUsername());
+
+            // Crear una respuesta exitosa
+            Map<String, String> respuesta = new HashMap<>();
+            respuesta.put("mensaje", "¡Este proceso se realizó con éxito!");
+
+            // Retornar una respuesta exitosa
+            return ResponseEntity.ok(respuesta);
+
+        } catch (Exception e) {
+            // Manejar posibles excepciones y retornar una respuesta de error
+            Map<String, String> respuestaError = new HashMap<>();
+            respuestaError.put("error", "Error al recuperar la contraseña: " + e.getMessage());
+            return ResponseEntity.status(500).body(respuestaError);
+        }
+    }
+
 }

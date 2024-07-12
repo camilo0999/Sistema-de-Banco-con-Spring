@@ -3,11 +3,14 @@ package com.sistema.banco.service;
 import java.io.File;
 import java.nio.charset.StandardCharsets;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
+
+import com.sistema.banco.models.Cliente;
 
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
@@ -18,11 +21,9 @@ public class CorreoServiceImp implements CorreoServie {
     @Value("${email.sender}")
     private String emailUser;
 
-    private final JavaMailSender mailSender;
+    private JavaMailSender mailSender;
 
-    public CorreoServiceImp(JavaMailSender mailSender) {
-        this.mailSender = mailSender;
-    }
+    private ClienteService clienteService;
 
     @Override
     public void enviarCorreo(String destinatario, String sujeto, String mensaje) {
@@ -57,6 +58,30 @@ public class CorreoServiceImp implements CorreoServie {
             e.printStackTrace();
         }
 
+    }
+
+    @Override
+    public void cambioContrasena(String destinatario) {
+        MimeMessage mimeMessage = mailSender.createMimeMessage();
+
+        Cliente cliente = clienteService.buscarClienteUsername(destinatario);
+        String cuenta = cliente.getDocumento();
+
+        try {
+            MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
+
+            helper.setFrom(emailUser);
+            helper.setTo(destinatario);
+            helper.setSubject("RESTABLECER CONTRASEÑA DE BANK");
+
+            String htmlMsg = "<p>Haz clic <a href=\"http://localhost:8080/bank/recuperar/" + cuenta
+                    + "\">aquí</a> para hacer el proceso de restablecer tu contraseña.</p>";
+            helper.setText(htmlMsg, true);
+
+            mailSender.send(mimeMessage);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }

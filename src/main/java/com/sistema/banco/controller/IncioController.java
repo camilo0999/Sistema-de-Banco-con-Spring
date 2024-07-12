@@ -13,6 +13,7 @@ import com.sistema.banco.models.Cliente;
 import com.sistema.banco.service.ClienteService;
 
 import jakarta.validation.Valid;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @Controller
 @RequestMapping("/bank")
@@ -52,6 +53,12 @@ public class IncioController {
         clienteService.guardarCliente(cliente);
 
         return "redirect:/bank/login";
+    }
+
+    @GetMapping("/recuperar")
+    public String mostrarFormularioRecuperar() {
+
+        return "incioVista/recuperar";
     }
 
 }

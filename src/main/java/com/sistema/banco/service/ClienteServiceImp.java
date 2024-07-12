@@ -173,4 +173,26 @@ public class ClienteServiceImp implements ClienteService {
 
     }
 
+    @Override
+    public void recuperarCuenta(String username, String contrasena) {
+
+        try {
+            Cliente cliente = buscarClienteUsername(username);
+
+            if (contrasena == null) {
+
+                logger.info("ERROR: DEBES AÑADIR UNA NUEVA CONTRASEÑA");
+
+            } else {
+                cliente.setPassword(contrasena);
+                logger.info("SE REALIZO EL RESTABLECIMIENTO DE CONTRASEÑA CON EXITO");
+            }
+        } catch (Exception e) {
+
+            logger.error("ERROR: OCURRIO UN ERROR AL RESTABLECER LA CONTRASEÑA");
+
+        }
+
+    }
+
 }

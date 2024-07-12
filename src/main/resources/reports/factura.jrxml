@@ -24,7 +24,7 @@
 			</staticText>
 			<image>
 				<reportElement x="440" y="17" width="94" height="80" uuid="d50efc0d-98fb-420f-9816-07af0d9d13d9"/>
-				<imageExpression class="java.lang.String"><![CDATA["C:/Users/Camilo/Desktop/Banco/banco/src/main/resources/reports/img/logo.png"]]></imageExpression>
+				<imageExpression class="java.lang.String"><![CDATA["reports/img/logo.png"]]></imageExpression>
 			</image>
 		</band>
 	</title>
@@ -126,7 +126,8 @@
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
-				<imageExpression class="java.lang.String"><![CDATA["C:/Users/Camilo/Desktop/Banco/banco/src/main/resources/reports/img/warning.png"]]></imageExpression>
+				<imageExpression class="java.lang.String"><![CDATA["reports/img/warning.png"]]></imageExpression>
+
 			</image>
 		</band>
 	</pageFooter>

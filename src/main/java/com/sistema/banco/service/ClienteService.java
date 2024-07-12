@@ -31,4 +31,6 @@ public interface ClienteService {
 
     public Cliente buscarClienteUsername(String username);
 
+    public void recuperarCuenta(String username, String contrasena);
+
 }

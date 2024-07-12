@@ -4,7 +4,10 @@ import com.sistema.banco.models.Cliente;
 import com.sistema.banco.service.ClienteService;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -24,8 +27,11 @@ public class SecurityClienteDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Cliente cliente = clienteService.buscarClienteUsername(username);
         if (cliente == null) {
-            throw new UsernameNotFoundException("Cliente no encontrado");
+            throw new UsernameNotFoundException("Usuario no encontrado");
         }
-        return new User(cliente.getUsername(), cliente.getPassword(), new ArrayList<>());
+
+        List<GrantedAuthority> authorities = List.of(new SimpleGrantedAuthority(cliente.getRoles()));
+
+        return new User(cliente.getUsername(), cliente.getPassword(), authorities);
     }
 }

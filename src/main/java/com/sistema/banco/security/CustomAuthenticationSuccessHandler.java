@@ -31,24 +31,20 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
 
         try {
             Cliente cliente = clienteService.buscarClienteUsername(username);
-
-            if (cliente == null) {
-                response.sendRedirect("/bank/login?error=ClienteNoEncontrado");
-                return;
-            }
-
             String rol = cliente.getRoles();
+            if (cliente != null) {
 
-            if ("User".equals(rol)) {
-                String redirectUrl = "/cliente/usuario/" + cliente.getDocumento();
-                response.sendRedirect(redirectUrl);
-            } else if ("Admin".equals(rol)) {
-                String redirectUrl = "/admin/inicio";
-                response.sendRedirect(redirectUrl);
+                if (rol.equals("User")) {
+                    String redirectUrl = "/cliente/usuario/" + cliente.getDocumento();
+                    response.sendRedirect(redirectUrl);
+                } else if (rol.equals("Admin")) {
+                    String redirectUrl = "/admin/inicio";
+                    response.sendRedirect(redirectUrl);
+                }
+
             } else {
-                response.sendRedirect("/bank/login?error=RolDesconocido");
+                response.sendRedirect("/bank/login?error=ClienteNoEncontrado");
             }
-
         } catch (Exception e) {
             response.sendRedirect("/bank/login?error=ErrorInterno");
         }

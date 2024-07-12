@@ -2,6 +2,7 @@ package com.sistema.banco.conf;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
@@ -31,24 +32,27 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/public/**", "/img/**", "/js/**", "/css/**", "/bank/**", "/login").permitAll()
-                        .requestMatchers("/cliente/usuario/**").permitAll() // Permitir acceso sin autenticación a
-                                                                            // /cliente/usuario/**
+
+                        .requestMatchers("/static/imgService/**", "/bank/**",
+                                "/login",
+                                "/correo/recuperar")
+                        .permitAll()
+                        .requestMatchers("/admin/**", "/correo/**")
+                        .hasAuthority("Admin")
+                        .requestMatchers(HttpMethod.POST, "/admin/guardarServicio").hasAuthority("Admin")
+                        .requestMatchers("/cliente/**", "/correo/**").hasAuthority("User")
                         .anyRequest().authenticated())
                 .formLogin(form -> form
                         .loginPage("/bank/login")
-                        .loginProcessingUrl("/bank/perform_login") // Configurar el endpoint de inicio de sesión
-                        .usernameParameter("email") // Asegúrate de que coincida con el nombre del campo en el
-                                                    // formulario
-                        .passwordParameter("password") // Asegúrate de que coincida con el nombre del campo en el
-                                                       // formulario
+                        .loginProcessingUrl("/bank/perform_login")
+                        .usernameParameter("email")
+                        .passwordParameter("password")
                         .successHandler(customAuthenticationSuccessHandler)
                         .permitAll())
                 .logout(logout -> logout
                         .logoutUrl("/logout")
-                        .logoutSuccessUrl("/login?logout")
-                        .permitAll())
-                .csrf().disable(); // Deshabilitar CSRF para simplificar la prueba
+                        .logoutSuccessUrl("/bank/login")
+                        .permitAll());
 
         return http.build();
     }

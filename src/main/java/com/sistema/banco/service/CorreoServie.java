@@ -8,4 +8,6 @@ public interface CorreoServie {
 
     public void enviarCorreoArchivo(String destinatario, String sujeto, String mensaje, File file);
 
+    public void cambioContrasena(String destinatario);
+
 }
