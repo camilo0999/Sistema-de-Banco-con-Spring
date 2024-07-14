@@ -20,4 +20,8 @@ public interface ServiciosService {
 
     public void editarServicio(Long id, Servicio servicio, MultipartFile file);
 
+    public List<Servicio> buscarPorCategoria(String categoria);
+
+    public List<Servicio> listarTodos();
+
 }

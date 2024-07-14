@@ -5,15 +5,18 @@ import java.util.Base64;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.util.StringUtils;
 
 import com.sistema.banco.models.Cliente;
 import com.sistema.banco.models.Cuenta;
+import com.sistema.banco.models.Servicio;
 import com.sistema.banco.models.Transaccion;
 import com.sistema.banco.repository.ClienteRepository;
 
@@ -28,8 +31,8 @@ public class ClienteServiceImp implements ClienteService {
 
     private final TransaccionService transaccionService;
 
-    public ClienteServiceImp(ClienteRepository clienteRepository, CuentaService cuentaService,
-            TransaccionService transaccionService) {
+    public ClienteServiceImp(ClienteRepository clienteRepository, @Lazy CuentaService cuentaService,
+            @Lazy TransaccionService transaccionService) {
         this.clienteRepository = clienteRepository;
         this.cuentaService = cuentaService;
         this.transaccionService = transaccionService;
@@ -145,20 +148,28 @@ public class ClienteServiceImp implements ClienteService {
     }
 
     @Override
-    public Set<Transaccion> mostrarMovimientos(String numeroCuenta) throws Exception {
+    public Set<Transaccion> mostrarMovimientos(String numeroCuenta, String tipo) throws Exception {
 
         try {
-
             Cuenta cuenta = cuentaService.buscarCuenta(numeroCuenta);
-
             logger.info("Listado de movimientos del Cliente: {}", cuenta.getCliente().getNombre());
-            return transaccionService.movimientosCuenta(cuenta);
+
+            // Obtener todos los movimientos de la cuenta
+            Set<Transaccion> movimientos = transaccionService.movimientosCuenta(cuenta);
+
+            // Filtrar los movimientos por tipo si el parámetro 'tipo' no es nulo ni vacío
+            if (tipo != null && !tipo.isEmpty()) {
+                return movimientos.stream()
+                        .filter(mov -> mov.getTipo().equalsIgnoreCase(tipo))
+                        .collect(Collectors.toSet());
+            }
+
+            return movimientos;
 
         } catch (Exception e) {
             logger.error("Error en ver movimientos: ", e);
         }
         return Collections.emptySet();
-
     }
 
     @Override
@@ -193,6 +204,18 @@ public class ClienteServiceImp implements ClienteService {
 
         }
 
+    }
+
+    @Override
+    public Cliente buscarClienteId(Long id) {
+
+        return clienteRepository.findById(id).get();
+    }
+
+    @Override
+    public void realizarCompra(Cliente cliente, Servicio servicio, String atributo) throws Exception {
+
+        cuentaService.procesoCompra(cliente.getCuenta().getNumeroCuenta(), servicio, atributo);
     }
 
 }

@@ -1,11 +1,17 @@
 package com.sistema.banco.models;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -28,6 +34,26 @@ public class Servicio {
     @Lob // Indica que el campo puede contener un objeto grande (large object)
     @Column(name = "imagen", columnDefinition = "LONGTEXT")
     private String rutaImagen;
+
+    @ManyToMany(mappedBy = "servicios")
+    private Set<Compras> compras = new HashSet<>();
+
+    public Servicio(Long id, String nombre, Double precio, String categoira, String rutaImagen, Set<Compras> compras) {
+        this.id = id;
+        this.nombre = nombre;
+        this.precio = precio;
+        this.categoira = categoira;
+        this.rutaImagen = rutaImagen;
+        this.compras = compras;
+    }
+
+    public Servicio(String nombre, Double precio, String categoira, String rutaImagen, Set<Compras> compras) {
+        this.nombre = nombre;
+        this.precio = precio;
+        this.categoira = categoira;
+        this.rutaImagen = rutaImagen;
+        this.compras = compras;
+    }
 
     public Servicio(Long id, String nombre, Double precio, String categoira, String rutaImagen) {
         this.id = id;
@@ -91,6 +117,14 @@ public class Servicio {
 
     public void setRutaImagen(String rutaImagen) {
         this.rutaImagen = rutaImagen;
+    }
+
+    public Set<Compras> getCompras() {
+        return this.compras;
+    }
+
+    public void setCompras(Set<Compras> compras) {
+        this.compras = compras;
     }
 
 }

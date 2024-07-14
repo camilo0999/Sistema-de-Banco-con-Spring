@@ -5,9 +5,11 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import com.sistema.banco.models.Cuenta;
+import com.sistema.banco.models.Servicio;
 import com.sistema.banco.repository.CuentaRepository;
 
 @Service
@@ -18,7 +20,7 @@ public class CuentaServiceImp implements CuentaService {
     private final CuentaRepository cuentaRepository;
     private final TransaccionService transaccionService;
 
-    public CuentaServiceImp(CuentaRepository cuentaRepository, TransaccionService transaccionService) {
+    public CuentaServiceImp(CuentaRepository cuentaRepository, @Lazy TransaccionService transaccionService) {
         this.cuentaRepository = cuentaRepository;
         this.transaccionService = transaccionService;
     }
@@ -79,9 +81,13 @@ public class CuentaServiceImp implements CuentaService {
 
             cuenta.setSaldo(cuenta.getSaldo() - monto);
 
-            transaccionService.guardarTransacion(receptor, monto, cuenta.getCliente().getNombre());
+            String nombre1 = cuenta.getCliente().getNombre();
 
-            transaccionService.guardarEnvio(cuenta, monto, receptor.getCliente().getNombre());
+            String nombre2 = receptor.getCliente().getNombre();
+
+            transaccionService.guardarTransacion(cuenta, monto, nombre1);
+
+            transaccionService.guardarEnvio(receptor, monto, nombre2);
 
             logger.info("Transaccion exitosa");
 
@@ -99,7 +105,7 @@ public class CuentaServiceImp implements CuentaService {
 
             cuenta.setSaldo(cuenta.getSaldo() + monto);
 
-            transaccionService.guardarTransacion(cuenta, monto, emisor);
+            transaccionService.guardarRecarga(cuenta, monto, emisor);
 
             logger.info("Se realizo exitosamente la recarga de saldo del Admin: {}", emisor);
 
@@ -124,6 +130,17 @@ public class CuentaServiceImp implements CuentaService {
         } catch (Exception e) {
             logger.error("Error al realizar retiro: ", e);
         }
+
+    }
+
+    @Override
+    public void procesoCompra(String numeroCuenta, Servicio servicio, String detalle) throws Exception {
+
+        Cuenta cuenta = cuentaRepository.findByNumeroCuenta(numeroCuenta);
+
+        cuenta.setSaldo(cuenta.getSaldo() - servicio.getPrecio());
+
+        transaccionService.guardarCompra(cuenta, servicio.getPrecio(), servicio, detalle);
 
     }
 

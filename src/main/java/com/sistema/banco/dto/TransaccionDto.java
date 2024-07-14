@@ -17,12 +17,23 @@ public class TransaccionDto {
 
     private Cuenta cuenta;
 
-    public TransaccionDto(Long id, Double monto, String emisor, LocalDateTime fecha, Cuenta cuenta) {
+    private String tipo;
+
+    public TransaccionDto(Long id, Double monto, String emisor, LocalDateTime fecha, Cuenta cuenta, String tipo) {
         this.id = id;
         this.monto = monto;
         this.emisor = emisor;
         this.fecha = fecha;
         this.cuenta = cuenta;
+        this.tipo = tipo;
+    }
+
+    public TransaccionDto(Double monto, String emisor, LocalDateTime fecha, Cuenta cuenta, String tipo) {
+        this.monto = monto;
+        this.emisor = emisor;
+        this.fecha = fecha;
+        this.cuenta = cuenta;
+        this.tipo = tipo;
     }
 
     public TransaccionDto(Double monto, String emisor, LocalDateTime fecha, Cuenta cuenta) {
@@ -52,10 +63,6 @@ public class TransaccionDto {
         this.monto = monto;
     }
 
-    public String getTipo() {
-        return this.emisor;
-    }
-
     public void setEmisor(String emisor) {
         this.emisor = emisor;
     }
@@ -78,6 +85,14 @@ public class TransaccionDto {
 
     public String getEmisor() {
         return this.emisor;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    public String getTipo() {
+        return this.tipo;
     }
 
 }

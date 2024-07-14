@@ -1,5 +1,10 @@
 package com.sistema.banco.dto;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import com.sistema.banco.models.Compras;
+
 public class ServiciosDto {
 
     private Long id;
@@ -12,12 +17,25 @@ public class ServiciosDto {
 
     private String rutaImagen;
 
-    public ServiciosDto(Long id, String nombre, Double precio, String categoira, String rutaImagen) {
+    private Set<Compras> compras = new HashSet<>();
+
+    public ServiciosDto(Long id, String nombre, Double precio, String categoira, String rutaImagen,
+            Set<Compras> compras) {
         this.id = id;
         this.nombre = nombre;
         this.precio = precio;
         this.categoira = categoira;
         this.rutaImagen = rutaImagen;
+        this.compras = compras;
+    }
+
+    public ServiciosDto(String nombre, Double precio, String categoira, String rutaImagen, Set<Compras> compras) {
+        this.nombre = nombre;
+        this.precio = precio;
+        this.categoira = categoira;
+        this.rutaImagen = rutaImagen;
+        this.compras = compras;
+
     }
 
     public ServiciosDto(String nombre, Double precio, String categoira, String rutaImagen) {
@@ -74,6 +92,14 @@ public class ServiciosDto {
 
     public void setRutaImagen(String rutaImagen) {
         this.rutaImagen = rutaImagen;
+    }
+
+    public Set<Compras> getCompras() {
+        return this.compras;
+    }
+
+    public void setCompras(Set<Compras> compras) {
+        this.compras = compras;
     }
 
 }

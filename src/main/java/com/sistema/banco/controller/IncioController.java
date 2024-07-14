@@ -11,9 +11,7 @@ import com.sistema.banco.dto.ClienteDto;
 import com.sistema.banco.mappers.ClienteMappers;
 import com.sistema.banco.models.Cliente;
 import com.sistema.banco.service.ClienteService;
-
 import jakarta.validation.Valid;
-import org.springframework.web.bind.annotation.RequestBody;
 
 @Controller
 @RequestMapping("/bank")

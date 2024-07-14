@@ -6,6 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bank</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
+
+    <style>
+        .active-category {
+            background-color: #1A56DB;
+            color: white;
+            border-color: #1A56DB;
+        }
+    </style>
+
 </head>
 
 <body class="bg-gray-100 dark:bg-gray-900" th:object="${clienteDto}">
@@ -45,7 +54,7 @@
                     class="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
                     <li>
                         <a href="#" th:href="@{/cliente/usuario/{id}(id=${clienteDto.documento})}"
-                            class="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500"
+                            class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
                             aria-current="page">Cuenta</a>
                     </li>
                     <li th:object="${clienteDto}">
@@ -54,23 +63,110 @@
                             class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Movimientos</a>
                     </li>
                     <li>
-                        <a th:href="@{/cliente/servicio/{id}(id=${clienteDto.documento})}"
-                            class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Servicios</a>
+                        <a href="#"
+                            class="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500">Servicios</a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <div class="m-4 rounded-lg h-96 w-auto bg-blue-600">
-        <h2 class="m-4 text-4xl font-extrabold text-white pt-5">¡Hola, <samp th:th:text="${clienteDto.nombre}"> Juan
-                Ibarguen</samp>!</h2>
-        <h2 class="text-2xl text-center font-extrabold text-white pt-5">Saldo disponible</h2>
-        <h2 class="text-1xl text-center  text-white"
-            th:text="${#numbers.formatDecimal(clienteDto.cuenta.saldo, 1, 'POINT', 2, 'COMMA')}">0</h2>
+
+    <div class="m-4 flex items-center justify-center py-4 md:py-8 flex-wrap">
+        <button type="button" onclick="filtrarCategoria('')" data-category=""
+            class="hover:text-white hover:bg-blue-700 category-button text-gray-900 border border-white hover:border-gray-200 dark:border-gray-900 dark:bg-gray-900 dark:hover:border-gray-700 bg-white focus:ring-4 focus:outline-none focus:ring-gray-300 rounded-full text-base font-medium px-5 py-2.5 text-center me-3 mb-3 dark:text-white dark:focus:ring-gray-800">Todas</button>
+        <button type="button" onclick="filtrarCategoria('Entretenimiento')" data-category="Entretenimiento"
+            class="hover:text-white hover:bg-blue-700 category-button text-gray-900 border border-white hover:border-gray-200 dark:border-gray-900 dark:bg-gray-900 dark:hover:border-gray-700 bg-white focus:ring-4 focus:outline-none focus:ring-gray-300 rounded-full text-base font-medium px-5 py-2.5 text-center me-3 mb-3 dark:text-white dark:focus:ring-gray-800">Entretenimiento</button>
+        <button type="button" onclick="filtrarCategoria('Celulares y paquetes')" data-category="Celulares y paquetes"
+            class="hover:text-white hover:bg-blue-700 category-button text-gray-900 border border-white hover:border-gray-200 dark:border-gray-900 dark:bg-gray-900 dark:hover:border-gray-700 bg-white focus:ring-4 focus:outline-none focus:ring-gray-300 rounded-full text-base font-medium px-5 py-2.5 text-center me-3 mb-3 dark:text-white dark:focus:ring-gray-800">Celulares
+            y paquetes</button>
+        <button type="button" onclick="filtrarCategoria('Hogar')" data-category="Hogar"
+            class="hover:text-white hover:bg-blue-700 category-button text-gray-900 border border-white hover:border-gray-200 dark:border-gray-900 dark:bg-gray-900 dark:hover:border-gray-700 bg-white focus:ring-4 focus:outline-none focus:ring-gray-300 rounded-full text-base font-medium px-5 py-2.5 text-center me-3 mb-3 dark:text-white dark:focus:ring-gray-800">Hogar</button>
+        <button type="button" onclick="filtrarCategoria('Seguros y salud')" data-category="Seguros y salud"
+            class="hover:text-white hover:bg-blue-700 category-button text-gray-900 border border-white hover:border-gray-200 dark:border-gray-900 dark:bg-gray-900 dark:hover:border-gray-700 bg-white focus:ring-4 focus:outline-none focus:ring-gray-300 rounded-full text-base font-medium px-5 py-2.5 text-center me-3 mb-3 dark:text-white dark:focus:ring-gray-800">Seguros
+            y salud</button>
+        <button type="button" onclick="filtrarCategoria('Transporte y viajes')" data-category="Transporte y viajes"
+            class="hover:text-white hover:bg-blue-700 category-button text-gray-900 border border-white hover:border-gray-200 dark:border-gray-900 dark:bg-gray-900 dark:hover:border-gray-700 bg-white focus:ring-4 focus:outline-none focus:ring-gray-300 rounded-full text-base font-medium px-5 py-2.5 text-center me-3 mb-3 dark:text-white dark:focus:ring-gray-800">Transporte
+            y viajes</button>
     </div>
 
 
+    <div class="m-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+        <!-- Producto -->
+        <div class="bg-white border border-gray-200 rounded-lg shadow overflow-hidden"
+            th:each="lista : ${listaServicio}">
+            <div class="flex flex-col h-full"> <!-- Añadido flex y h-full para ajuste -->
+                <div class="flex-shrink-0">
+                    <img th:src="@{${lista.rutaImagen}}" th:alt="${lista.nombre}"
+                        class="w-full h-48 object-cover rounded-t-lg">
+                </div>
+                <div class="p-2 flex flex-col justify-between flex-grow"> <!-- Ajuste de padding y flex-grow -->
+                    <div class="p-4 flex flex-col"> <!-- Ajuste aquí -->
+                        <a href="#" class="block mb-2">
+                            <h5 class="text-xl font-semibold text-gray-900 dark:text-white" th:text="${lista.nombre}">
+                                Nombre del Producto</h5>
+                            <span th:text="${lista.categoira}"
+                                class="bg-indigo-100 text-indigo-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-indigo-900 dark:text-indigo-300">Indigo</span>
+                        </a>
+                    </div>
+                    <div class=" p-2 flex justify-between items-center">
+                        <span class="text-3xl font-bold text-gray-900 dark:text-white"
+                            th:text="${#numbers.formatDecimal(lista.precio, 2, 'COMMA', 2, 'POINT')}">$599</span>
+                        <button type="button" th:onclick="'mostrarModal(' + ${lista.id} + ')'"
+                            data-modal-target="crud-modal" data-modal-toggle="crud-modal"
+                            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                            Comprar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main modal -->
+    <div id="crud-modal" tabindex="-1" aria-hidden="true"
+        class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+        <div class="relative p-4 w-full max-w-md max-h-full">
+            <!-- Modal content -->
+            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                <!-- Modal header -->
+                <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                    <h3 id="modal-product-name" class="text-lg font-semibold text-gray-900 dark:text-white">
+                        Nombre del Producto
+                    </h3>
+                    <button type="button"
+                        class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                        data-modal-toggle="crud-modal">
+                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                            viewBox="0 0 14 14">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                        </svg>
+                        <span class="sr-only">Close modal</span>
+                    </button>
+                </div>
+                <!-- Modal body -->
+                <div class="p-4 md:p-5">
+                    <form id="servicio-form" method="post" th:action="@{/cliente/guardarCompra}" th:object="${clienteDto}">
+                        <div class="mb-4">
+                            <label for="atributo"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Atributo</label>
+                            <input type="text" name="atributo" id="atributo" required
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                        </div>
+                        <input type="hidden" name="servicioId" id="servicioId">
+
+                        <input type="hidden" name="clienteId" id="clienteId" th:value="${clienteDto.Id}">
+
+                        <button type="submit"
+                            class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                            Aceptar
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div data-dial-init class="fixed end-6 bottom-6 group">
         <div id="speed-dial-menu-square" class="flex flex-col items-center hidden mb-4 space-y-2">
@@ -445,12 +541,6 @@
         </div>
     </div>
 
-
-
-
-
-
-
     <footer class="bg-white rounded-lg shadow dark:bg-gray-900 m-4">
         <div class="w-full max-w-screen-xl mx-auto p-4 md:py-8">
             <div class="sm:flex sm:items-center sm:justify-between">
@@ -484,7 +574,51 @@
                 Flowbite.</span>
         </div>
     </footer>
+
+
+
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+    <script>
+        function filtrarCategoria(categoria) {
+            const url = new URL(window.location.href);
+            url.searchParams.set('categoria', categoria);
+            window.location.href = url.href;
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const categoria = urlParams.get('categoria');
+            const buttons = document.querySelectorAll('.category-button');
+
+            buttons.forEach(button => {
+                if (button.getAttribute('data-category') === categoria) {
+                    button.classList.add('active-category');
+                }
+            });
+
+            // Si no hay categoría seleccionada, resaltar el botón "Todas"
+            if (!categoria) {
+                document.querySelector('.category-button[data-category=""]').classList.add('active-category');
+            }
+        });
+
+
+        function mostrarModal(id) {
+            fetch(`/cliente/servicio2/${id}`)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('modal-product-name').textContent = data.nombre;
+                    document.getElementById('servicioId').value = data.id;
+                    const modal = document.getElementById('crud-modal');
+                    modal.classList.remove('hidden');
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+    </script>
+
+
 </body>
 
 </html>

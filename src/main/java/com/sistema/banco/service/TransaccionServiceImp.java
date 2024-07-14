@@ -12,9 +12,11 @@ import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import com.sistema.banco.models.Cuenta;
+import com.sistema.banco.models.Servicio;
 import com.sistema.banco.models.Transaccion;
 import com.sistema.banco.repository.TransaccionRepository;
 
@@ -33,11 +35,11 @@ public class TransaccionServiceImp implements TransaccionService {
     private static Logger logger = LoggerFactory.getLogger(TransaccionServiceImp.class);
 
     private final TransaccionRepository transaccionRepository;
-    private final CorreoServie correoServie;
+    private final ComprasService comprasService;
 
-    public TransaccionServiceImp(TransaccionRepository transaccionRepository, CorreoServie correoServie) {
+    public TransaccionServiceImp(TransaccionRepository transaccionRepository, @Lazy ComprasService comprasService) {
         this.transaccionRepository = transaccionRepository;
-        this.correoServie = correoServie;
+        this.comprasService = comprasService;
     }
 
     @Override
@@ -57,65 +59,9 @@ public class TransaccionServiceImp implements TransaccionService {
     }
 
     @Override
-    public void guardarTransacion(Cuenta cuenta, Double monto, String emisor) throws Exception {
-
-        try {
-
-            LocalDateTime locaDate = LocalDateTime.now();
-
-            Transaccion transaccion = new Transaccion();
-
-            transaccion.setFecha(locaDate);
-
-            transaccion.setMonto(monto);
-
-            transaccion.setTipo(emisor);
-
-            transaccion.setCuenta(cuenta);
-
-            transaccionRepository.save(transaccion);
-
-            correoServie.enviarCorreo(cuenta.getCliente().getUsername(),
-
-                    "NOTIFICACION DE MOVIMIENTOS DE BANK",
-                    "Se ha generado un movimiento en la cuenta N: " + cuenta.getNumeroCuenta() + " de parte de "
-                            + emisor);
-
-        } catch (Exception e) {
-
-            logger.error("Error en guardar transacion: ", e);
-        }
-
-    }
-
-    @Override
     public Set<Transaccion> movimientosCuenta(Cuenta cuenta) throws Exception {
 
         return transaccionRepository.findAllByCuenta(cuenta);
-    }
-
-    @Override
-    public void guardarEnvio(Cuenta cuenta, Double saldo, String receptor) throws Exception {
-        try {
-
-            LocalDateTime locaDate = LocalDateTime.now();
-
-            Transaccion transaccion = new Transaccion();
-
-            transaccion.setFecha(locaDate);
-
-            transaccion.setMonto(saldo);
-
-            transaccion.setTipo(receptor);
-
-            transaccion.setCuenta(cuenta);
-
-            transaccionRepository.save(transaccion);
-
-        } catch (Exception e) {
-
-            logger.error("Error en guardar transacion: ", e);
-        }
     }
 
     @Override
@@ -153,6 +99,101 @@ public class TransaccionServiceImp implements TransaccionService {
         }
 
         throw new UnsupportedOperationException("Unimplemented method 'exportPdf'");
+    }
+
+    @Override
+    public List<Transaccion> obtenerMovimientos(String tipo) throws Exception {
+
+        return transaccionRepository.findAllByTipo(tipo);
+    }
+
+    @Override
+    public void guardarRecarga(Cuenta cuenta, Double saldo, String emisor) throws Exception {
+        try {
+
+            LocalDateTime locaDate = LocalDateTime.now();
+
+            Transaccion transaccion = new Transaccion();
+
+            transaccion.setFecha(locaDate);
+
+            transaccion.setMonto(saldo);
+
+            transaccion.setEmisor(emisor);
+
+            transaccion.setCuenta(cuenta);
+
+            transaccion.setTipo("Recargas");
+
+            transaccionRepository.save(transaccion);
+
+        } catch (Exception e) {
+
+            logger.error("Error en guardar transacion: ", e);
+        }
+    }
+
+    @Override
+    public void guardarCompra(Cuenta cuenta, Double saldo, Servicio servicio, String detalle)
+            throws Exception {
+        try {
+
+            LocalDateTime locaDate = LocalDateTime.now();
+
+            Transaccion transaccion = new Transaccion();
+
+            transaccion.setFecha(locaDate);
+
+            transaccion.setMonto(saldo);
+
+            transaccion.setEmisor("COMPRA DEL SERRVICIO: " + servicio.getNombre());
+
+            transaccion.setCuenta(cuenta);
+
+            transaccion.setTipo("Compras");
+
+            transaccionRepository.save(transaccion);
+
+            comprasService.guardarCompras(cuenta.getCliente(), servicio, detalle);
+
+        } catch (Exception e) {
+
+            logger.error("Error en guardar transacion: ", e);
+        }
+    }
+
+    @Override
+    public void guardarTransacion(Cuenta cuenta, Double saldo, String emisor) throws Exception {
+        try {
+            LocalDateTime locaDate = LocalDateTime.now();
+            Transaccion transaccion = new Transaccion();
+            transaccion.setFecha(locaDate);
+            transaccion.setMonto(saldo);
+            transaccion.setEmisor(emisor);
+            transaccion.setCuenta(cuenta);
+            transaccion.setTipo("Recibidos");
+            transaccionRepository.save(transaccion);
+        } catch (Exception e) {
+            logger.error("Error en guardar transacción: ", e);
+            throw new Exception("Error al guardar la transacción de envío", e);
+        }
+    }
+
+    @Override
+    public void guardarEnvio(Cuenta cuenta, Double saldo, String receptor) throws Exception {
+        try {
+            LocalDateTime locaDate = LocalDateTime.now();
+            Transaccion transaccion = new Transaccion();
+            transaccion.setFecha(locaDate);
+            transaccion.setMonto(saldo);
+            transaccion.setEmisor(receptor);
+            transaccion.setCuenta(cuenta);
+            transaccion.setTipo("Envios");
+            transaccionRepository.save(transaccion);
+        } catch (Exception e) {
+            logger.error("Error en guardar transacción: ", e);
+            throw new Exception("Error al guardar la transacción recibida", e);
+        }
     }
 
 }

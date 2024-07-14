@@ -1,5 +1,6 @@
 package com.sistema.banco.repository;
 
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -16,5 +17,7 @@ public interface TransaccionRepository extends JpaRepository<Transaccion, Long> 
     // un objecto tipo cuenta como parametro y el busca todas las transaciones que a
     // tenido esa cuenta.
     Set<Transaccion> findAllByCuenta(Cuenta cuenta);
+
+    List<Transaccion> findAllByTipo(String tipo);
 
 }

@@ -35,13 +35,24 @@ public class Transaccion {
     @JoinColumn(name = "cuenta_id", nullable = false)
     private Cuenta cuenta;
 
-    // Metodos constructores
-    public Transaccion(Long id, Double monto, String emisor, LocalDateTime fecha, Cuenta cuenta) {
+    @Column(name = "tipo")
+    private String tipo;
+
+    public Transaccion(Long id, Double monto, String emisor, LocalDateTime fecha, Cuenta cuenta, String tipo) {
         this.id = id;
         this.monto = monto;
         this.emisor = emisor;
         this.fecha = fecha;
         this.cuenta = cuenta;
+        this.tipo = tipo;
+    }
+
+    public Transaccion(Double monto, String emisor, LocalDateTime fecha, Cuenta cuenta, String tipo) {
+        this.monto = monto;
+        this.emisor = emisor;
+        this.fecha = fecha;
+        this.cuenta = cuenta;
+        this.tipo = tipo;
     }
 
     public Transaccion(Double monto, String emisor, LocalDateTime fecha, Cuenta cuenta) {
@@ -73,14 +84,6 @@ public class Transaccion {
         this.monto = monto;
     }
 
-    public String getTipo() {
-        return this.emisor;
-    }
-
-    public void setTipo(String emisor) {
-        this.emisor = emisor;
-    }
-
     public LocalDateTime getFecha() {
         return this.fecha;
     }
@@ -103,6 +106,14 @@ public class Transaccion {
 
     public void setEmisor(String emisor) {
         this.emisor = emisor;
+    }
+
+    public String getTipo() {
+        return this.tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 
 }

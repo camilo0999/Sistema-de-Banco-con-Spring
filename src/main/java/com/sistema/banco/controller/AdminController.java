@@ -4,9 +4,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.sistema.banco.dto.CuentaDto;
@@ -47,6 +49,27 @@ public class AdminController {
         modelo.addAttribute("listaServicio", serviciosService.lista());
         modelo.addAttribute("ServiciosDto", new Servicio());
         return "adminVista/servicio";
+    }
+
+    @GetMapping("/servicio/{id}")
+    @ResponseBody
+    public Servicio obtenerServicio(@PathVariable Long id) {
+        return serviciosService.buscarServicio(id);
+    }
+
+    @PostMapping("/editarServicio")
+    public String actualizarServicio(@ModelAttribute ServiciosDto serviciosDto,
+            @RequestParam("file") MultipartFile file, @RequestParam("id") Long id) {
+        try {
+            Servicio servicio = serviciosMappers.toServicio(serviciosDto);
+            serviciosService.editarServicio(id, servicio, file);
+
+            return "redirect:/admin/servicio";
+        } catch (Exception e) {
+            // Manejo básico de errores
+            e.printStackTrace();
+            return "error"; // Asegúrate de tener una vista de error
+        }
     }
 
     @GetMapping("eliminarServicio")

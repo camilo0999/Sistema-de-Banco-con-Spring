@@ -6,6 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bank</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
+
+    <style>
+        .active-tipo {
+            background-color: #1A56DB;
+            color: white;
+            border-color: #1A56DB;
+        }
+    </style>
+
 </head>
 
 <body class="bg-gray-100 dark:bg-gray-900" th:object="${clienteDto}">
@@ -54,7 +63,7 @@
                             class="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500">Movimientos</a>
                     </li>
                     <li>
-                        <a href="#"
+                        <a th:href="@{/cliente/servicio/{id}(id=${clienteDto.documento})}"
                             class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Servicios</a>
                     </li>
                 </ul>
@@ -62,45 +71,52 @@
         </div>
     </nav>
 
+    <div class="flex items-center justify-center py-4 md:py-8 flex-wrap">
+        <button type="button" onclick="filtrarTipo('')" data-tipo=""
+            class="tipo-button hover:text-white hover:bg-blue-700 category-button text-gray-900 border border-white hover:border-gray-200 dark:border-gray-900 dark:bg-gray-900 dark:hover:border-gray-700 bg-white focus:ring-4 focus:outline-none focus:ring-gray-300 rounded-full text-base font-medium px-5 py-2.5 text-center me-3 mb-3 dark:text-white dark:focus:ring-gray-800">Todas</button>
+        <button type="button" onclick="filtrarTipo('Envios')" data-tipo="Envios"
+            class="tipo-button hover:text-white hover:bg-blue-700 category-button text-gray-900 border border-white hover:border-gray-200 dark:border-gray-900 dark:bg-gray-900 dark:hover:border-gray-700 bg-white focus:ring-4 focus:outline-none focus:ring-gray-300 rounded-full text-base font-medium px-5 py-2.5 text-center me-3 mb-3 dark:text-white dark:focus:ring-gray-800">Envios</button>
+        <button type="button" onclick="filtrarTipo('Recibidos')" data-tipo="Recibidos"
+            class="tipo-button hover:text-white hover:bg-blue-700 category-button text-gray-900 border border-white hover:border-gray-200 dark:border-gray-900 dark:bg-gray-900 dark:hover:border-gray-700 bg-white focus:ring-4 focus:outline-none focus:ring-gray-300 rounded-full text-base font-medium px-5 py-2.5 text-center me-3 mb-3 dark:text-white dark:focus:ring-gray-800">Recibidos</button>
+        <button type="button" onclick="filtrarTipo('Compras')" data-tipo="Compras"
+            class="tipo-button hover:text-white hover:bg-blue-700 category-button text-gray-900 border border-white hover:border-gray-200 dark:border-gray-900 dark:bg-gray-900 dark:hover:border-gray-700 bg-white focus:ring-4 focus:outline-none focus:ring-gray-300 rounded-full text-base font-medium px-5 py-2.5 text-center me-3 mb-3 dark:text-white dark:focus:ring-gray-800">Compras</button>
+        <button type="button" onclick="filtrarTipo('Recargas')" data-tipo="Recargas"
+            class="tipo-button hover:text-white hover:bg-blue-700 category-button text-gray-900 border border-white hover:border-gray-200 dark:border-gray-900 dark:bg-gray-900 dark:hover:border-gray-700 bg-white focus:ring-4 focus:outline-none focus:ring-gray-300 rounded-full text-base font-medium px-5 py-2.5 text-center me-3 mb-3 dark:text-white dark:focus:ring-gray-800">Recargas</button>
 
+    </div>
 
     <div class="m-4 flex items-center justify-center min-h-screen bg-gray-100">
         <div
             class="w-full max-w-md p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
             <div class="flex items-center justify-between mb-4">
                 <h5 class="text-2xl font-bold leading-none text-gray-900 dark:text-white">Mis movimientos</h5>
-                <h5 class="text-xl text-gray-400 dark:text-blue-500">Detalles</h5>
+                <h5 class="text-xl text-gray-400 dark:text-blue-500">Transaccion</h5>
             </div>
-            <div class="flow-root">
+            <div class="flow-root" id="listaMovimientos">
                 <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
-                    <li class="py-3 sm:py-4" th:each="listaMovimientos: ${listaMovimientos}">
+                    <li class="py-3 sm:py-4" th:each="movimiento: ${listaMovimientosFiltrados}"
+                        data-tipo="${movimiento.tipo}">
                         <div class="flex items-center">
                             <div class="flex-1 min-w-0 ms-4">
-                                <p class="text-sm font-medium text-gray-900  dark:text-white">EMISOR:
-                                    <samp th:text="${listaMovimientos.emisor}">
-                                    </samp>
+                                <p class="text-sm font-medium text-gray-900 dark:text-white">Movimiento:
+                                    <samp th:text="${movimiento.emisor}"></samp>
                                 </p>
-
-
-                                <p class="text-sm text-gray-500 dark:text-gray-400 "
-                                    th:text="${#dates.format(new java.util.Date(listaMovimientos.fecha), 'dd-MM-yyyy HH:mm')}">
-
+                                <p class="text-sm text-gray-500 dark:text-gray-400"
+                                th:text="${#temporals.format(movimiento.fecha, 'dd-MM-yyyy HH:mm')}">
                                 </p>
+                                <span th:text="${movimiento.tipo}"
+                                    class="bg-indigo-100 text-indigo-800 text-xs font-medium me-2 mt-2 px-2.5 py-0.5 rounded dark:bg-indigo-900 dark:text-indigo-300">Indigo</span>
                             </div>
                             <p class="inline-flex m-4 font-semibold text-gray-900 dark:text-white"
-                                th:text="${listaMovimientos.monto}"></p>
-                            <a th:href="@{/cliente/reporte/{idTransaccion}(idTransaccion=${listaMovimientos.id})}"
+                                th:text="${movimiento.monto}"></p>
+                            <a th:href="@{/cliente/reporte/{idTransaccion}(idTransaccion=${movimiento.id})}"
                                 class="inline-flex text-base font-semibold text-blue-700 dark:text-white">Descargar</a>
-
                         </div>
+                    </li>
+                </ul>
             </div>
-            </li>
-            </ul>
         </div>
     </div>
-    </div>
-
-
 
     <div data-dial-init class="fixed end-6 bottom-6 group">
         <div id="speed-dial-menu-square" class="flex flex-col items-center hidden mb-4 space-y-2">
@@ -308,7 +324,37 @@
                 Flowbite.</span>
         </div>
     </footer>
+
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+
+    <script>
+        function filtrarTipo(tipo) {
+            const url = new URL(window.location.href);
+            url.searchParams.set('tipo', tipo);
+            window.location.href = url.href;
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const tipoSeleccionado = urlParams.get('tipo');
+            const buttons = document.querySelectorAll('.tipo-button');
+
+            buttons.forEach(button => {
+                if (button.getAttribute('data-tipo') === tipoSeleccionado) {
+                    button.classList.add('active-tipo');
+                } else {
+                    button.classList.remove('active-tipo');
+                }
+            });
+
+            // Si no hay tipo seleccionado, resaltar el botón "Todas"
+            if (!tipoSeleccionado) {
+                document.querySelector('.tipo-button[data-tipo=""]').classList.add('active-tipo');
+            }
+        });
+    </script>
+
 </body>
 
 </html>

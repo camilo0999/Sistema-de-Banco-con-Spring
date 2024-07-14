@@ -122,24 +122,32 @@ public class ServicioServiceImp implements ServiciosService {
     @Override
     public void editarServicio(Long id, Servicio servicio, MultipartFile file) {
         try {
-
             Servicio servicio2 = buscarServicio(id);
 
             servicio2.setCategoira(servicio.getCategoira());
-
             servicio2.setNombre(servicio.getNombre());
-
             servicio2.setPrecio(servicio.getPrecio());
 
-            if (file != null) {
+            if (file != null && !file.isEmpty()) {
                 servicio2.setRutaImagen(buscarImagen(file));
             }
 
-            logger.info("SE REALIZO CON EXITO LA ACTUALIZACION");
+            serviciosRepository.save(servicio2);
 
+            logger.info("SE REALIZO CON EXITO LA ACTUALIZACION");
         } catch (Exception e) {
             logger.error("SUCEDIO UN ERROR EN EDITAR SERVICIO: ", e);
         }
+    }
+
+    @Override
+    public List<Servicio> buscarPorCategoria(String categoria) {
+        return serviciosRepository.findByCategoira(categoria);
+    }
+
+    @Override
+    public List<Servicio> listarTodos() {
+        return serviciosRepository.findAll();
     }
 
 }
