@@ -171,7 +171,7 @@ public class TransaccionServiceImp implements TransaccionService {
             transaccion.setMonto(saldo);
             transaccion.setEmisor(emisor);
             transaccion.setCuenta(cuenta);
-            transaccion.setTipo("Recibidos");
+            transaccion.setTipo("Envios");
             transaccionRepository.save(transaccion);
         } catch (Exception e) {
             logger.error("Error en guardar transacción: ", e);
@@ -188,7 +188,7 @@ public class TransaccionServiceImp implements TransaccionService {
             transaccion.setMonto(saldo);
             transaccion.setEmisor(receptor);
             transaccion.setCuenta(cuenta);
-            transaccion.setTipo("Envios");
+            transaccion.setTipo("Recibidos");
             transaccionRepository.save(transaccion);
         } catch (Exception e) {
             logger.error("Error en guardar transacción: ", e);

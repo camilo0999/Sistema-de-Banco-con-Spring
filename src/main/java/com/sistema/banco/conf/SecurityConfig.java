@@ -35,7 +35,7 @@ public class SecurityConfig {
 
                         .requestMatchers("/static/imgService/**", "/bank/**",
                                 "/login",
-                                "/correo/recuperar")
+                                "/correo/recuperar/**")
                         .permitAll()
                         .requestMatchers("/admin/**", "/correo/**")
                         .hasAuthority("Admin")

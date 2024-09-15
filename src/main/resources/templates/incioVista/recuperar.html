@@ -73,31 +73,59 @@
         <div class="max-w-lg w-full mx-auto bg-white rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700 p-8">
             <h2 class="text-3xl font-bold mb-6 text-gray-900 dark:text-white">Recuperar Contraseña</h2>
 
-            <form id="recuperar-form" action="/correo/recuperar" method="post">
+            <form id="recuperar-form" onsubmit="enviarFormulario(event)">
                 <label for="email-address-icon" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                     Ingresa tu correo
                 </label>
                 <div class="relative mb-4">
                     <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                         <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
-                             xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 16">
-                            <path d="m10.036 8.278 9.258-7.79A1.979 1.979 0 0 0 18 0H2A1.987 1.987 0 0 0 .641.541l9.395 7.737Z"/>
-                            <path d="M11.241 9.817c-.36.275-.801.425-1.255.427-.428 0-.845-.138-1.187-.395L0 2.6V14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2.5l-8.759 7.317Z"/>
+                            xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 16">
+                            <path
+                                d="m10.036 8.278 9.258-7.79A1.979 1.979 0 0 0 18 0H2A1.987 1.987 0 0 0 .641.541l9.395 7.737Z" />
+                            <path
+                                d="M11.241 9.817c-.36.275-.801.425-1.255.427-.428 0-.845-.138-1.187-.395L0 2.6V14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2.5l-8.759 7.317Z" />
                         </svg>
                     </div>
                     <input type="email" id="email-address-icon" name="username"
-                           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                           placeholder="name@flowbite.com" required>
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        placeholder="name@flowbite.com" required>
                 </div>
-            
                 <button type="submit"
-                        class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                    class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                     Enviar
                 </button>
             </form>
-            
-            
-            
+
+            <script>
+                async function enviarFormulario(event) {
+                    event.preventDefault();
+
+                    const form = document.getElementById('recuperar-form');
+                    const formData = new FormData(form);
+                    const jsonData = {};
+
+                    formData.forEach((value, key) => {
+                        jsonData[key] = value;
+                    });
+
+                    const response = await fetch('/correo/recuperar', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(jsonData),
+                    });
+
+                    const data = await response.json();
+                    console.log(data);
+                }
+            </script>
+
+
+
+
+
 
         </div>
 
@@ -141,13 +169,13 @@
     <script>
         document.getElementById('recuperar-form').addEventListener('submit', function (e) {
             e.preventDefault();
-    
+
             const formData = new FormData(this);
             const data = {};
             formData.forEach((value, key) => {
                 data[key] = value;
             });
-    
+
             fetch('/correo/recuperar', {
                 method: 'POST',
                 headers: {
@@ -155,15 +183,15 @@
                 },
                 body: JSON.stringify(data)
             })
-            .then(response => response.json())
-            .then(data => {
-                console.log('Success:', data);
-                // Aquí puedes manejar la respuesta y mostrar un mensaje de éxito al usuario
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-                // Aquí puedes manejar el error y mostrar un mensaje de error al usuario
-            });
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Success:', data);
+                    // Aquí puedes manejar la respuesta y mostrar un mensaje de éxito al usuario
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                    // Aquí puedes manejar el error y mostrar un mensaje de error al usuario
+                });
         });
     </script>
 </body>

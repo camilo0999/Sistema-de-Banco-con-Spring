@@ -33,30 +33,35 @@ public class ComprasServiceImp implements ComprasService {
 
             Compras compras = new Compras();
 
-            Set<Servicio> servicios = new HashSet<>();
+            // Obtener o inicializar el conjunto de servicios
+            Set<Servicio> servicios = compras.getServicios();
+            if (servicios == null) {
+                servicios = new HashSet<>();
+            }
 
-            servicios.add(servicio);
+            // Agregar el servicio y actualizar ambos lados de la relación
+            if (!servicios.contains(servicio)) {
+                servicios.add(servicio);
+                servicio.getCompras().add(compras); // Actualizar el lado del servicio
+            }
 
             compras.setServicios(servicios);
-
             compras.setClienteNombre(cliente.getNombre() + " " + cliente.getApellido());
-
             compras.setFecha(fechaActual);
+            compras.setDetalle("SE REALIZO LA COMPRA DEL SERVICIO " + servicio.getNombre() +
+                " EL CUAL PERTENECE A LA CATEGORIA " + servicio.getCategoira() + 
+                ", SERVICIO BENEFICIARIO PARA " + detalle);
 
-            compras.setDetalle(
-                    "SE REALIZO LA COMPRA DEL SERVICIO " + servicio.getNombre() + " EL CUAL PERTENECE A LA CATEGORIA "
-                            + servicio.getCategoira() + ", SERVICIO BENEFICIARIO PARA " + detalle);
-
+            // Guardar la compra en el repositorio
             comprasRepository.save(compras);
 
             logger.info("SE GUARDO CORRECTAMENTE LA COMPRA ");
 
         } catch (Exception e) {
-
             logger.error("OCURRIO UN ERROR AL GUARDAR LA COMPRA: ", e);
-
         }
 
     }
+
 
 }
