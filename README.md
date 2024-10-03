@@ -19,5 +19,7 @@ Requisitos del Sistema para Ejecutar el Desarrollo Web:
     7. Finalmente, ejecuta el programa desde tu IDE para probar el desarrollo web.
        
     8. Abre el navegador y abre el siguiente link http://localhost:8080/bank/registrar 
+   
+
 
     
